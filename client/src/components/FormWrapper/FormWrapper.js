@@ -3,8 +3,8 @@ import Form from "../Form";
 
 class FormWrapper extends React.Component {
   state = {
-    numForms: 0,
-    Forms: []
+    Forms: [],
+    
   }
 
   
@@ -17,21 +17,28 @@ class FormWrapper extends React.Component {
     event.preventDefault();
     const Forms = this.state.Forms;
     this.setState({Forms: Forms.concat(<Form 
-      key={Forms.length}
+      key={`form${Forms.length}`}
+      id={`form${Forms.length}`}
+      deleteEvent={this.deleteEvent}
     />)});
     console.log(this.state.Forms);
   }
 
+  deleteEvent = (id) => {
+    const Forms = this.state.Forms.filter(thisEvent => thisEvent.props.id !== id);
+    this.setState({Forms});
+  }
+  
   render() {
     return ( 
       <div id = "FormWrapper" >
         <h1>Create a new schedule</h1>
         <form>
           Schedule Name: <input name="scheduleName"></input> <br />
-          <input type="radio" id="public" name="pub-priv" checked />
-          <label for="public">Public</label> <br />
+          <input type="radio" id="public" name="pub-priv" defaultChecked />
+          <label htmlFor="public">Public</label> <br />
           <input type="radio" id="private" name="pub-priv" />
-          <label for="private">Private</label> <br />
+          <label htmlFor="private">Private</label> <br />
           <p>Give the following people administrative access: <br />
           (seperate emails with a space or press enter after each one)</p>
           <textarea />
