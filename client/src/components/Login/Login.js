@@ -4,7 +4,7 @@ const login = props =>
     <div>
         <div className="login">
             <div className="name">calPal</div>
-            <form action="/login" method="post">
+            <form action="/login" method="POST">
                 <div>
                     <label>Username:</label>
                     <input type="text" name="username" />

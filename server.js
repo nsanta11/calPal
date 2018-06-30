@@ -18,14 +18,14 @@ app.use(express.static("client/build"));
 // mongoose.connect(MONGODB_URI);
 
 // Connect to the db
-mongoose.connect("mongodb://localhost/userstest", function(err, db) {
-  if(err) { return console.dir(err); }
-});
+// mongoose.connect("mongodb://localhost/userstest", function(err, db) {
+//   if(err) { return console.dir(err); }
+// });
 
-//app.get("/test", function(req, res) {
-//console.log(db)
+// //app.get("/test", function(req, res) {
+// //console.log(db)
 
-  db.Auth.create({email:"Fiat", password:"500"})
+//   db.Auth.create({email:"Fiat", password:"500"})
 //})
       // Create a new user database using the `result` object built from scraping
 
