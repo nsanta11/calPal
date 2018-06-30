@@ -1,6 +1,6 @@
 import React from "react";
 
-const login = props =>
+const Login = props =>
     <div>
         <div className="login">
             <div className="name">calPal</div>
@@ -21,6 +21,6 @@ const login = props =>
         {props.children}
     </div>
 
-export default Nav;
+export default Login;
 
 
