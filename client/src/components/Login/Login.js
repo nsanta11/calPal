@@ -4,16 +4,23 @@ const login = props =>
     <div>
         <div className="login">
             <div className="name">calPal</div>
-            <form style="text-align:center">
-                <input type="text" name="firstname" />
-                <br/>
-                <input type="text" name="lastname" />
-                <br/>
-                <input type="submit" value="Submit"/>
+            <form action="/login" method="post">
+                <div>
+                    <label>Username:</label>
+                    <input type="text" name="username" />
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" name="password" />
+                </div>
+                <div>
+                    <input type="submit" value="Log In" />
+                </div>
             </form>
         </div>
         {props.children}
     </div>
 
 export default Nav;
+
 

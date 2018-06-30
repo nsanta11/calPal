@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const AuthSchema = new Schema({
   email: {
     type: String,
     required: true
@@ -10,11 +10,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  calendars: Array,
-  created: {type: Date, default: Date.now}
 });
 
+//UserSchema.plugin(passportLocalMongoose); 
 
-const User = mongoose.model("User", UserSchema);
+const Auth = mongoose.model("Auth", AuthSchema);
 
-module.exports = User;
+module.exports = Auth;
