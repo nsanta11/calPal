@@ -1,5 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const db = require("./models");
+
 // const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -10,9 +13,23 @@ app.use(bodyParser.json());
 // Serve up static assets
 app.use(express.static("client/build"));
 
-// mongoose.connect(
-//   process.env.MONGODB_URI || "mongodb://localhost/yourdb"
-// );
+// const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/UserTest";
+// mongoose.Promise = Promise;
+// mongoose.connect(MONGODB_URI);
+
+// Connect to the db
+mongoose.connect("mongodb://localhost/userstest", function(err, db) {
+  if(err) { return console.dir(err); }
+});
+
+//app.get("/test", function(req, res) {
+//console.log(db)
+
+  db.Auth.create({email:"Fiat", password:"500"})
+//})
+      // Create a new user database using the `result` object built from scraping
+
+  
 
 app.get("/api/test", function(req, res) {
   res.send("Hello");
