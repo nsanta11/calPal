@@ -24,7 +24,7 @@ app.use(express.static("client/build"));
 
 // mongoose.connect("mongodb://localhost/userauth", function(err, db) {
 //   if(err) { return console.dir(err); }
-// });
+});
 
 mongoose.connect("mongodb://localhost/CalPal", function(err, db) {
   if(err) { return console.dir(err); }
