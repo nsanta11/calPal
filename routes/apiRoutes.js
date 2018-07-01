@@ -19,8 +19,8 @@ router.route("/api/user/")
 
 //auth api routes
 router.route("/api/Authentication/")
-  .get(Authentication.find)
-  .post(Authentication.create)
-  .put(Authentication.update)
+  .get(Auth.find)
+  .post(Auth.create)
+  .put(Auth.update)
 
 module.exports = router;

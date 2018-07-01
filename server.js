@@ -33,12 +33,11 @@ mongoose.connect("mongodb://localhost/CalPal", function(err, db) {
 // //app.get("/test", function(req, res) {
 // //console.log(db)
 
-
 app.get("/api/test", function(req, res) {
   res.send("Hello");
 })
 
-require("./routes/apiRoutes")(app)
+app.use(routes);
 
 app.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
