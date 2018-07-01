@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const calendar = require("../controllers/calendarsController.js");
 const user = require("../controllers/usersController")
+const db = require("../models");
+const Auth = db.Auth;
 
 
 //calendar api routes
@@ -15,6 +17,10 @@ router.route("/api/user/")
   .post(user.create)
   .put(user.update)
 
+//auth api routes
+router.route("/api/Authentication/")
+  .get(Authentication.find)
+  .post(Authentication.create)
+  .put(Authentication.update)
 
 module.exports = router;
-
