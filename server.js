@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const db = require("./models");
-// const Auth = db.Auth;
+const routes = require("./routes/apiRoutes");
 
 // const mongoose = require("mongoose");
 const app = express();
@@ -20,15 +20,18 @@ app.use(express.static("client/build"));
 // mongoose.connect(MONGODB_URI);
 
 // Connect to the db
+
 mongoose.connect("mongodb://localhost/userauth", function(err, db) {
+// mongoose.connect("mongodb://localhost/userstest", function(err, db) {
+//   if(err) { return console.dir(err); }
+// });
+
+mongoose.connect("mongodb://localhost/CalPal", function(err, db) {
   if(err) { return console.dir(err); }
 });
 
 // //app.get("/test", function(req, res) {
 // //console.log(db)
-
- 
-// app.use(router);
 
 
 app.get("/api/test", function(req, res) {

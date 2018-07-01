@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  calendars: Array,
+  calendars: {type: Array, default: null},
   created: {type: Date, default: Date.now}
 });
 
