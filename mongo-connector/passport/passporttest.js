@@ -1,5 +1,6 @@
 var express = require("express");
 var mongoose = require('mongoose');
+var morgan = require('morgan');
 var app = express(),
     path = require('path');
 mongodb = require('mongodb'),
@@ -18,7 +19,8 @@ var passport = require('passport'),
     passportLocalMongoose = require("passport-local-mongoose");
 
 app.set('view engine', 'ejs');
-mongoose.connect("mongodb://localhost/auth_demo_app");
+// mongoose.connect("mongodb://localhost/auth_demo_app");
+app.use(morgan('dev'));
 
 app.use(passport.initialize());
 app.use(passport.session()); 

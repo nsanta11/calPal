@@ -4,15 +4,16 @@ var mongoose = require('mongoose'),
   SALT_WORK_FACTOR = 10;
 
 var AuthSchema = new Schema({
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
+    email: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    }
 });
+
 
 AuthSchema.pre('save', function (next) {
   var user = this;
