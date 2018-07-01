@@ -2,7 +2,7 @@ const db = require("../models");
 
 module.exports = {
   // Example of finding all calendars in db. Will tweak for whatever we need.
-  findAll: function(req, res) {
+  find: function(req, res) {
     db.Calendar
       .find(req.query)
       .then((dbModel) => res.json(dbModel))
