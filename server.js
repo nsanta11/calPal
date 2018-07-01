@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const db = require("./models");
 const routes = require("./routes/apiRoutes");
 
+
 // const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,8 +22,7 @@ app.use(express.static("client/build"));
 
 // Connect to the db
 
-mongoose.connect("mongodb://localhost/userauth", function(err, db) {
-// mongoose.connect("mongodb://localhost/userstest", function(err, db) {
+// mongoose.connect("mongodb://localhost/userauth", function(err, db) {
 //   if(err) { return console.dir(err); }
 });
 
@@ -33,12 +33,11 @@ mongoose.connect("mongodb://localhost/CalPal", function(err, db) {
 // //app.get("/test", function(req, res) {
 // //console.log(db)
 
-
 app.get("/api/test", function(req, res) {
   res.send("Hello");
 })
 
-require("./routes/apiRoutes")(app)
+app.use(routes);
 
 app.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
