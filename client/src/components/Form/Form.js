@@ -2,33 +2,46 @@ import React from "react";
 
 class Form extends React.Component {
   state = {
-    Watch: [<input name= "watch" key="watch0"  arrayPos={0} onchange={this.handleChange}/>], //this is to add multiple watch locations
-    _Events: {},
+    Watch: [], //this is to add multiple watch locations
+    _Event: {
     title: "",
     date: "",
     time: "",
     link: "",
     info: "",
     watch: []
+    }
   }
 
   //onClick event to add multiple watch locations
   addWatch = event => {
     event.preventDefault();
     const Watch = this.state.Watch;
-    this.setState({Watch: Watch.concat(<input name="watch" arrayPos={Watch.length} key={`watch${Watch.length}`}></input>)});
-    console.log(this.state.Watch);
+    this.setState({watch: this.state._Event.watch.push(``),
+      Watch: Watch.concat(<input 
+        name={`watch[${Watch.length}]`} 
+        arraypos={Watch.length} 
+        value={this.state._Event.watch[Watch.length]} 
+        key={`watch${Watch.length}`} 
+        onChange={this.handleInputChange} 
+      />
+    )});
+    console.log(this.state._Event.watch);
   }
 
+  //will record all changes as they happen since Form does not know when the save button will be pushed, it will always be ready
   handleInputChange = event => {
     const name = event.target.name;
     let value = event.target.value;
     if(name.startsWith("watch")) {
       const i = event.target.arrayPos;
-      
+      let watch = this.state._Event.watch;
+      watch[i] = value;
+      this.setState({...this.state._Event, watch: watch});
     }
-    this.setState({[name]: value});
-    
+    else {
+      this.setState({...this.state._Event, [name]: value});
+    }
   }
 
   render() {
