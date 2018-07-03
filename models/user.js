@@ -26,9 +26,6 @@ module.exports = mongoose.model('User', userSchema);
 
 
 
-// const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
-
 // const UserSchema = new Schema({
 //   email: {
 //     type: String,
@@ -42,7 +39,3 @@ module.exports = mongoose.model('User', userSchema);
 //   created: {type: Date, default: Date.now}
 // });
 
-
-// const User = mongoose.model("User", UserSchema);
-
-// module.exports = User;
