@@ -12,7 +12,7 @@ class App extends Component {
         <div>
           <Route exact path="/calendar" component={CalendarWrapper} />
           <Route exact path="/create" component={FormWrapper} />
-          <Route path="/" component={Login} />
+          <Route exact path="/" component={Login} />
         </div>
       </Router>
     );
