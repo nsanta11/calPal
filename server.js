@@ -15,7 +15,14 @@ const testRoutes   = require('./routes/test');
 const app = express();
 const PORT = process.env.PORT || 3001;
 // const router = express.Router();
-require('./mongo-connector/passport')
+require('./mongo-connector/passport/index');
+require('./mongo-connector/passport')(passport);
+
+// var configDB = require('./mongo-connector/database');
+
+// // configuration ===============================================================
+// mongoose.connect(configDB.url); // connect to our database
+
 
 // log every request to the console
 app.use(morgan('dev')); 
@@ -29,11 +36,10 @@ app.use(express.static("client/build"));
 
 // required for passport
 app.use(session({
-  secret: 'eminem', // session secret
+  secret: 'whatever', // session secret
   resave: true,
   saveUninitialized: true
 }));
-
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 

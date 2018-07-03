@@ -1,7 +1,7 @@
 // load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
 
-var User = require('../../models/Authentication');
+var User = require('../../models/user');
 
 var myLocalConfig = (passport) => {
   // =========================================================================
@@ -37,7 +37,7 @@ var myLocalConfig = (passport) => {
 
       // asynchronous
       process.nextTick(function () {
-        User.findOne({ 'email': email }, function (err, user) {
+        User.findOne({ 'local.email': email }, function (err, user) {
           // if there are any errors, return the error
           if (err)
             return done(err);
@@ -69,13 +69,12 @@ var myLocalConfig = (passport) => {
     function (req, email, password, done) {
       if (email)
         email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
-        
 
       // asynchronous
       process.nextTick(function () {
         // if the user is not already logged in:
         if (!req.user) {
-          User.findOne({ 'email': email }, function (err, user) {
+          User.findOne({ 'local.email': email }, function (err, user) {
             // if there are any errors, return the error
             if (err)
               return done(err);
@@ -104,7 +103,7 @@ var myLocalConfig = (passport) => {
         } else if (!req.user.local.email) {
           // ...presumably they're trying to connect a local account
           // BUT let's check if the email used to connect a local account is being used by another user
-          User.findOne({ 'email': email }, function (err, user) {
+          User.findOne({ 'local.email': email }, function (err, user) {
             if (err)
               return done(err);
 
@@ -133,3 +132,4 @@ var myLocalConfig = (passport) => {
     }));
 };
 
+module.exports = myLocalConfig;
