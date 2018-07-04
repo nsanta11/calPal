@@ -16,6 +16,13 @@ class FormWrapper extends React.Component {
     this.setState({scheduleName: event.target.value});
   }
 
+  //this will change this.state.public to private if private is checked
+  setPublic = event => {
+    if(event.target.value === "Private") {
+      this.setState({public: false});
+    } 
+  }
+
   //methods to save all form info to database
   saveEvents = () => {
     const schedule = {
@@ -35,7 +42,9 @@ class FormWrapper extends React.Component {
     eventsArray.push({
       title: "",
       date: "",
-      watch: []
+      watch: [],
+      link: "",
+      info: ""
     });
     this.setState({
       eventsArray: eventsArray,
@@ -73,6 +82,19 @@ class FormWrapper extends React.Component {
       <div id = "FormWrapper" >
         <h1>Create a new schedule</h1>
         <form>
+        Schedule Name: 
+          <input 
+            value={this.state.scheduleName}
+            onChange={this.handleChange} 
+            name="scheduleName" 
+          /> <br />
+          <div onChange={this.setPublic.bind(this)}>
+            <input type="radio" id="public" name="pub-priv" value="Public" />Public
+            <input type="radio" id="private" name="pub-priv" value="Private" />Private
+          </div>
+          <p>Give the following people administrative access: <br />
+          (seperate emails with a space or press enter after each one)</p>
+          <textarea />
           {this.state.eventsArray.map((event, index) =>
                 <div className="Form" id={index} key={index}>
                 Event Name:
@@ -95,8 +117,9 @@ class FormWrapper extends React.Component {
                     value={Wevent} 
                     key={`watch${Windex}`} 
                     onChange={(e) => this.handleWatchChange(index, Windex, e)} 
-                  />
+                  /> 
                 )}
+
                 <button 
                   className="moreWatch"
                   onClick={(event) => {
@@ -106,6 +129,18 @@ class FormWrapper extends React.Component {
                 >
                   + location
                 </button>
+                Website: 
+                <input 
+                  name="link" 
+                  value={event.link} 
+                  onChange={(e) => this.handleInputChange(index, e)} 
+                />
+                Additional Information: 
+                <textarea 
+                  name="info" 
+                  value={event.info} 
+                  onChange={(e) => this.handleInputChange(index, e)} 
+                />
               </div>
           )}
           <button 

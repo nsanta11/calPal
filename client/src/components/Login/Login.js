@@ -1,9 +1,10 @@
 import React from "react";
+import "./Login.css";
 
 const Login = props =>
     <div>
         <div className="login">
-            <div className="name">calPal</div>
+            <div className="calPal">calPal</div>
             <form action="/login" method="post">
                 <div>
                     <label>Username:</label>
