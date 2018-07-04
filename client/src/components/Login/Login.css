@@ -1,0 +1,33 @@
+.calPal {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 80px;
+  margin: 33px 0px 40px 81px;
+}
+
+label {
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-left:84px;
+}
+
+.login {
+  border: black solid;
+  width: 450px;
+  height: 240px;
+  margin-left: 34vw;
+  margin-top: 30vh;
+  background: #f7f7b0;
+}
+
+input {
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 15px;
+  width: 171px
+}
+
+.loginButton {
+  font-family: 'Roboto Condensed', sans-serif !important;
+  background: #d04a4a !important;
+  margin-left:188px !important;
+}
