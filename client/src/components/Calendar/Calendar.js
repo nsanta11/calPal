@@ -46,7 +46,8 @@ class Calendar extends React.Component {
     fetch("https://api.mysportsfeeds.com/v1.2/pull/nhl/2018-2019-regular/full_game_schedule.json", {
       method: "GET",
       headers: {
-        "Authorization": "Basic " + btoa("cdplourde" + ":" + "Baxter214")
+        // TODO: put the password in ENV 
+        "Authorization": "Basic " + btoa("cdplourde" + ":" + "Pass4Class")
       }
     })
     .then(res => res.json())
