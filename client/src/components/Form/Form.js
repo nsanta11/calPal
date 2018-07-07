@@ -1,5 +1,6 @@
 import React from "react";
 import "./Form.css";
+import API from "../../utils/API";
 import Datetime from "react-datetime";
 import 'react-datetime/css/react-datetime.css';
 
@@ -7,6 +8,7 @@ class Form extends React.Component {
   state = {
     scheduleName: "",
     public: true,
+    schedulePassword: "",
     //the following are to create multiple events
     eventsArray: [],
     eventsCount: 0,
@@ -16,7 +18,8 @@ class Form extends React.Component {
 
   //will update scheduleName while inputting scheduleName, this can be used to show user that they are inputting a unique scheduleName (will implement later)
   handleChange = event => {
-    this.setState({scheduleName: event.target.value});
+    const name = event.target.name;
+    this.setState({[name]: event.target.value});
   }
 
   //this will change this.state.public to private if private is checked
@@ -31,11 +34,21 @@ class Form extends React.Component {
     const schedule = {
       title: this.state.scheduleName,
       public: this.state.public,
+      password: this.state.schedulePassword,
       author: "Need to get this from cookies, will implement later",
       savedEvents: this.state.eventsArray,
     };
 
     console.log(schedule);
+    API.saveSchedule({
+      title: this.state.scheduleName,
+      public: this.state.public,
+      password: this.state.schedulePassword,
+      author: "Need to get this from cookies, will implement later",
+      savedEvents: this.state.eventsArray
+    })
+      .then(res => "uploaded successfully")
+      .catch(err => console.log(err));
   }
 
   //Create additional event forms
@@ -55,14 +68,14 @@ class Form extends React.Component {
     });
   }
 
+  //create more watch locations
   moreWatch = (index) => {
-    // console.log(this.state.eventsArray[index].watch);
     let watch = this.state.eventsArray;
     watch[index].watch.push("");
-    // console.log(watch);
     this.setState({eventsArray: watch});
   }
 
+  //update the individual event's info in this.state.eventsArray
   handleInputChange = (index, e) => {
     const name = e.target.name;
     let value = e.target.value;
@@ -71,17 +84,16 @@ class Form extends React.Component {
     this.setState({eventsArray});
   }
 
+  //update the individual watch location in this.state.eventsArray[index].watch array
   handleWatchChange = (index, Windex, e) => {
     let value = e.target.value;
     let eventsArray = this.state.eventsArray;
-    console.log(eventsArray[index].watch[Windex]);
     eventsArray[index].watch[Windex] = value;
     this.setState({eventsArray});
-    console.log(this.state.eventsArray);
   }
 
+  //update the date for individual events in this.state.eventsArray
   handleDateChange = (index, e) => {
-    console.log(e._d);
     let eventsArray = this.state.eventsArray;
     eventsArray[index].date = e._d;
     this.setState({eventsArray});
@@ -102,6 +114,14 @@ class Form extends React.Component {
             <input type="radio" id="public" name="pub-priv" value="Public" />Public
             <input type="radio" id="private" name="pub-priv" value="Private" />Private
           </div>
+          {!this.state.public ? 
+          <div>Schedule password:
+            <input
+              value={this.state.schedulePassword}
+              onChange={this.handleChange}
+              name="schedulePassword"
+            />
+          </div> : <div name="noPassword" />}
           <p>Give the following people administrative access: <br />
           (seperate emails with a space or press enter after each one)</p>
           <textarea />
@@ -116,15 +136,9 @@ class Form extends React.Component {
                 Date: 
                 <Datetime 
                   name="date" 
-                  // value={event.date}
                   className="date" 
                   onChange={(e) => this.handleDateChange(index,e)}
                 />
-                {/* <input 
-                  name="date" 
-                  value={event.date} 
-                  onChange={(e) => this.handleInputChange(index, e)} 
-                /> */}
                  Where to Watch?
                 {event.watch.map((Wevent, Windex) => 
                   //Windex is short for watch index, need both that and the form index
