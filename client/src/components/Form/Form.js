@@ -26,7 +26,9 @@ class Form extends React.Component {
   setPublic = event => {
     if(event.target.value === "Private") {
       this.setState({public: false});
-    } 
+    } else {
+      this.setState({public: true});
+    }
   }
 
   //methods to save all form info to database
@@ -111,8 +113,8 @@ class Form extends React.Component {
             name="scheduleName" 
           /> <br />
           <div onChange={this.setPublic.bind(this)}>
-            <input type="radio" id="public" name="pub-priv" value="Public" />Public
-            <input type="radio" id="private" name="pub-priv" value="Private" />Private
+            <input type="radio" id="public" name="pub-priv" className="pub-priv" value="Public" />Public
+            <input type="radio" id="private" name="pub-priv" className="pub-priv" value="Private" />Private
           </div>
           {!this.state.public ? 
           <div>Schedule password:
@@ -122,9 +124,9 @@ class Form extends React.Component {
               name="schedulePassword"
             />
           </div> : <div name="noPassword" />}
-          <p>Give the following people administrative access: <br />
+          {/* <p>Give the following people administrative access: <br />
           (seperate emails with a space or press enter after each one)</p>
-          <textarea />
+          <textarea /> */}
           {this.state.eventsArray.map((event, index) =>
                 <div className="Form" id={index} key={index}>
                 Event Name: 
@@ -182,9 +184,9 @@ class Form extends React.Component {
             >
               + Event
           </button>
-          <p>Include the emails of anybody you would like to share this calendar with.  This is the only way other users may find a private calendar.
+          {/* <p>Include the emails of anybody you would like to share this calendar with.  This is the only way other users may find a private calendar.
           (seperate emails with a space or press enter after each one)</p>
-          <textarea name="shareList" />
+          <textarea name="shareList" /> */}
           <button 
             className="saveSched"
             onClick = {event => {

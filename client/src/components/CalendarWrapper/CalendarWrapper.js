@@ -1,13 +1,13 @@
 import React from "react";
 import Calendar from "../Calendar";
-// import Sidebar from "../Sidebar";
+import Sidebar from "../Sidebar";
 
 
 
 
 const CalendarWrapper = () => (
   <div >
-     {/* <Sidebar /> */}
+     <Sidebar />
     <Calendar /> 
   </div>
 );
