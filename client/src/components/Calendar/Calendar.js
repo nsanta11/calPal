@@ -43,7 +43,7 @@ class Calendar extends React.Component {
   }
 
   handleSportChange() {
-    fetch("https://api.mysportsfeeds.com/v1.2/pull/nhl/2018-2019-regular/full_game_schedule.json", {
+    fetch("https://api.mysportsfeeds.com/v1.2/pull/nhl/2018-2019-regular/full_game_schedule.json?team=boston-bruins", {
       method: "GET",
       headers: {
         // TODO: put the password in ENV 
@@ -51,7 +51,18 @@ class Calendar extends React.Component {
       }
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log(data);
+      const gameData = data.fullgameschedule.gameentry.map(game => {
+        return({
+          title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
+          allDay: false,
+          start: game.date,
+          end: game.date
+        })
+      });
+      this.setState({events: gameData})
+    });
   }
 }
 
