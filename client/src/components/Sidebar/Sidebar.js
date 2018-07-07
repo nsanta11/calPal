@@ -1,6 +1,5 @@
 import React from "react";
-import { Dropdown } from 'semantic-ui-react'
-import { Search, Grid, Header, Segment } from 'semantic-ui-react'
+import { Dropdown, Search, Checkbox } from 'semantic-ui-react'
 
 const Sidebar = () => {
   return (
@@ -19,7 +18,10 @@ const Sidebar = () => {
             // {...this.props}
           />
         
-        
+    Checkboxes to toggle schedules on/off.  Can easily make these using a .map loop
+    <Checkbox label={{ children: 'Schedule 1' }} />
+    <Checkbox label={{ children: 'Schedule 2' }} />
+    <Checkbox label={{ children: 'Schedule 3' }} />    
 
   
     SIDEBAR
