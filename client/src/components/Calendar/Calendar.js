@@ -13,6 +13,8 @@ class Calendar extends React.Component {
     ]
   }
 
+  //create modal when event is clicked on for more information.  Modals are part of semantic
+
   render() {
     return (
       <div id="calContainer"
