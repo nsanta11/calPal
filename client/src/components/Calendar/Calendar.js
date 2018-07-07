@@ -6,10 +6,9 @@ class Calendar extends React.Component {
   state = {
     events: [
       {
-        title: '4pm Dbacks',
+        title: 'Dbacks',
         allDay: false,
-        start: new Date(2018, 5, 26, 10, 0),
-        end: new Date(2018, 5, 26, 14, 0)
+        start: "2018-07-09T16:00:00",
       }
     ]
   }
