@@ -1,0 +1,23 @@
+#FormWrapper{
+  border: black solid;
+  /* width: 450px;
+  height: 240px; */
+  margin-left: 10vw;
+  margin-right: 10vw;
+  margin-top: 5vh;
+  background: #f7f7b0;
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+input {
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 15px;
+  width: 171px
+}
+
+button {
+  font-family: 'Roboto Condensed', sans-serif !important;
+  background: #d04a4a !important;
+}
