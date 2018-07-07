@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const User = require('../../models/user')
-const passport = require('../../mongo-connector/passport');
-
+const passport = require('../../mongo-connector/passport')
 
 router.post('/', (req, res) => {
     console.log('user signup');
@@ -11,7 +10,7 @@ router.post('/', (req, res) => {
     // ADD VALIDATION
     User.findOne({ username: username }, (err, user) => {
         if (err) {
-            console.log('post error: ', err)
+            console.log('User.js post error: ', err)
         } else if (user) {
             res.json({
                 error: `Sorry, already a user with the username: ${username}`
@@ -33,7 +32,7 @@ router.post('/', (req, res) => {
 router.post(
     '/login',
     function (req, res, next) {
-        console.log('routes/auth.js, login, req.body: ');
+        console.log('routes/user.js, login, req.body: ');
         console.log(req.body)
         next()
     },
@@ -67,39 +66,3 @@ router.post('/logout', (req, res) => {
 })
 
 module.exports = router
-
-// router.post('/signup', passport.authenticate('local-signup', {
-//     successRedirect : '/auth/profile',
-//     failureRedirect : 'auth/signup'
-// }));
-
-// router.post('/login', passport.authenticate('local-login', {
-//     successRedirect : '/auth/profile',
-//     failureRedirect : '/auth/login'
-// }));
-
-// router.get('/profile', isLoggedIn, (req, res) => {
-//     // get the user out of session and pass to template
-//     res.render('profile.js', {
-//         user : req.user 
-//     });
-//     res.status(200).json(req.user);
-// });
-// router.get('/logout', isLoggedIn, (req, res) => {
-//     req.logout();
-//     res.status(200).json({
-//         'message': 'successfully logout'
-//     });
-// });
-
-// module.exports = router;
-
-
-//route middleware to ensure user is logged in
-// function isLoggedIn(req, res, next) {
-//     if (req.isAuthenticated())
-//         return next();
-//     res.status(400).json({
-//         'message': 'access denied'
-//     });
-// }

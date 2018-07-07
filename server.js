@@ -5,27 +5,26 @@ const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
-const passport = require('./mongo-connector/passport');
+var passport = require('./mongo-connector/passport/index');
+// const passport = require('./mongo-connector/passport');
+const user = require('./routes/auth/index')
 
-const db = require("./models");
-const routes = require("./routes/apiRoutes");
-const MongoStore = require('connect-mongo')(session);
-const user = require('./routes/auth')
+const dbConnection = require("./models/mongo");
+const User = require('./models/user');
+// const routes = require("./routes/apiRoutes");
+const MongoStore = require('connect-mongo')(session)
 
-const authRoutes   = require('./routes/auth');
-const testRoutes   = require('./routes/test');
-// const mongoose = require("mongoose");
+// const authRoutes   = require('./routes/auth');
+// const testRoutes   = require('./routes/test');
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 // const router = express.Router();
 require('./mongo-connector/passport/');
 // require('./mongo-connector/passport')(passport);
 
-// var configDB = require('./mongo-connector/database');
-
 // // configuration ===============================================================
 // mongoose.connect(configDB.url); // connect to our database
-
 
 // log every request to the console
 app.use(morgan('dev')); 
@@ -38,29 +37,29 @@ app.use(bodyParser.json());
 app.use(express.static("client/build"));
 
 
-mongoose.connect("mongodb://localhost/CalPal", function(err, db) {
-  if(err) { return console.dir(err); }
-});
+// mongoose.connect("mongodb://localhost/CalPal", function(err, db) {
+//   if(err) { return console.dir(err); }
+// });
 // Sessions
 app.use(
-	session({
-		secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
-		store: new MongoStore({ mongooseConnection: mongoose.connection }),
-		resave: false, //required
-		saveUninitialized: false //required
-	})
+  session({
+  secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
+  store: new MongoStore({ mongooseConnection: dbConnection }),
+  resave: false, //required
+  saveUninitialized: false //required
+  })
 )
 
 
-app.use(passport.initialize());
- // persistent login sessions
-app.use(passport.session());
+// Passport
+app.use(passport.initialize())
+app.use(passport.session()) // calls the deserializeUser
 
 
 
 // routes ======================================================================
-app.use('/auth', authRoutes);
-app.use('/test', testRoutes);
+// app.use('/auth', authRoutes);
+// app.use('/test', testRoutes);
 app.use('/user', user)
 
 // const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/UserTest";
@@ -77,7 +76,7 @@ app.get("/api/test", function(req, res) {
 })
 
 
-app.use(routes);
+// app.use(routes);
 
 app.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

@@ -1,12 +1,12 @@
-import React, {Component} from "react";
-import axios from 'axios';
-import {Redirect} from 'react-router-dom';
-import "./Login.css";
+import React, {Component} from "react"
+import axios from 'axios'
+import {Redirect} from 'react-router-dom'
+import "./Login.css"
 import { Button, Icon } from 'semantic-ui-react'
 
 // const Login = props =>
 
-class Login extends Component {
+class LoginForm extends Component {
     constructor() {
         super()
         this.state = {
@@ -16,7 +16,7 @@ class Login extends Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
-
+  
     }
 
     handleChange(event) {
@@ -51,9 +51,10 @@ class Login extends Component {
             }).catch(error => {
                 console.log('login error: ')
                 console.log(error);
-
+                
             })
     }
+    
 
     render() {
         if (this.state.redirectTo) {
@@ -67,11 +68,11 @@ class Login extends Component {
                         {/* <form action="/login" method="post"> */}
                             <div>
                                 <label>Username: </label>
-                                <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
+                                <input type="text" id="username" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
                             </div>
                             <div>
                                 <label>Password:  </label>
-                                <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
+                                <input type="password" id="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
                             </div>
                             <Button animated type="submit" className="loginButton" onClick={this.handleSubmit}>
                                 <Button.Content visible>Log In</Button.Content>
@@ -94,6 +95,6 @@ class Login extends Component {
 }
 
 
-export default Login;
+export default LoginForm;
 
 

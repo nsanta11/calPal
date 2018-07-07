@@ -6,7 +6,9 @@ import CalendarWrapper from "./components/CalendarWrapper";
 import FormWrapper from "./components/FormWrapper";
 import Login from "./components/Login";
 import Navbar from "./components/navbar";
+import Signup from "./components/Signup"
 import './App.css';
+import LoginForm from './components/Login';
 
 class App extends Component {
   constructor() {
@@ -50,27 +52,33 @@ class App extends Component {
     })
   }
 
+
   render() {
     return (
-      <div>
-      
-      <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
-      {this.state.loggedIn &&
-        <p>Join the party, {this.state.username}!</p>
-      }
-      <Router>
-        <div>
-          <Route exact path="/calendar" component={CalendarWrapper} />
-          <Route exact path="/create" component={FormWrapper} />
-          <Route exact path="/" component={Login} />
-          <Route exact path="/login" 
-          render={() => 
-          <Login 
-          updateUser={this.updateUser}
-          />} 
-           />
-        </div>
-      </Router>
+      <div className="App">
+
+        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+        {this.state.loggedIn &&
+          <p>Join the party, {this.state.username}!</p>
+        }
+        <Router>
+          <div>
+            <Route exact path="/calendar" component={CalendarWrapper} />
+            <Route exact path="/create" component={FormWrapper} />
+            <Route exact path="/" component={Login} />
+            <Route
+              path="/signup"
+              render={() =>
+                <Signup />}
+            />
+            <Route exact path="/login"
+              render={() =>
+                <LoginForm
+                  updateUser={this.updateUser}
+                />}
+            />
+          </div>
+        </Router>
       </div>
     );
   }

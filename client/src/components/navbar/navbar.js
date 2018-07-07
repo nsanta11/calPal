@@ -48,7 +48,7 @@ class Navbar extends Component {
                         <section className="navbar-section">
 
                             <Button animated type="submit" className="loginButton" onClick={this.handleSubmit}>
-                                <Button.Content visible>Log In</Button.Content>
+                                <Button.Content visible>Sign Up</Button.Content>
                                 <Button.Content hidden>
                                     <Icon name='right arrow' />
                                 </Button.Content>
