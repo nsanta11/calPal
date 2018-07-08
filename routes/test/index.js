@@ -12,6 +12,10 @@ router.get('/user', isLoggedIn, (req, res) => {
     res.status(200).json({
         'message': "This is secured user routing"
     });
+    // get the user out of session and pass to template
+    res.render('profile.js', {
+        user : req.user 
+    });
 });
 
 module.exports = router;
