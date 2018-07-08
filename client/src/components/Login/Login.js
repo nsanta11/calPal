@@ -7,8 +7,8 @@ import { Button, Icon } from 'semantic-ui-react'
 
 
 class LoginForm extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			username: '',
 			password: '',
@@ -36,6 +36,7 @@ class LoginForm extends Component {
     
 
     render() {
+        console.log(this.props)
         if (this.state.redirectTo) {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {

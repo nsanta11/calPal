@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require('path');
+// const routes = require('./routes/auth')
 // const flash = require('flash');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -22,7 +23,7 @@ const MongoStore = require('connect-mongo')(session)
 // const testRoutes   = require('./routes/test');
 
 const PORT = process.env.PORT || 3001;
-// const router = express.Router();
+const router = express.Router();
 // require('./mongo-connector/passport')(passport);
 
 // // configuration ===============================================================
@@ -59,6 +60,7 @@ app.use(passport.session()) // calls the deserializeUser
 
 
 app.use('/auth', require('./routes/auth'))
+// app.use(routes)
 
 // routes ======================================================================
 // app.use('/auth', authRoutes);
@@ -85,10 +87,9 @@ app.use(function(err, req, res, next) {
 	res.status(500)
 })
 
-
 // app.use(routes);
 
-app.listen(PORT, function () {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+app.listen(PORT, () => {
+	console.log(`App listening on PORT: ${PORT}`)
+})
 

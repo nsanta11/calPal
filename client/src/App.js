@@ -106,10 +106,13 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
-						user: response.data.user
-					})
-				}
-			})
+            user: response.data.user
+          })
+        }
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
 	}
 
 
@@ -131,7 +134,6 @@ class App extends Component {
               render={() =>
                 <LoginForm
                 _login={this._login}
-                _googleSignin={this._googleSignin}
               />}
           />
           <Route exact path="/signup" component={Signup} />
