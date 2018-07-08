@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import "./Signup.css"
 import { Redirect } from 'react-router-dom'
+import { Button, Icon } from 'semantic-ui-react'
 
 class SignupForm extends Component {
 	constructor() {
@@ -28,7 +30,7 @@ class SignupForm extends Component {
 				password: this.state.password
 			})
 			.then(response => {
-				console.log(response)
+				console.log(response.username)
 				if (!response.data.errmsg) {
 					console.log('youre good')
 					this.setState({
@@ -67,7 +69,14 @@ class SignupForm extends Component {
 					value={this.state.confirmPassword}
 					onChange={this.handleChange}
 				/>
-				<button onClick={this.handleSubmit}>Sign up</button>
+				  <Button animated type="submit" className="signupButton" onClick={this.handleSubmit}>
+                                <Button.Content visible>Sign Up</Button.Content>
+                                <Button.Content hidden>
+                                    <Icon name='right arrow' />
+                                </Button.Content>
+                            </Button>
+
+				{/* <button onClick={this.handleSubmit}>Sign up</button> */}
 			</div>
 		)
 	}
