@@ -3,13 +3,14 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 //components
 import CalendarWrapper from "./components/CalendarWrapper";
-import FormWrapper from "./components/FormWrapper";
+// import FormWrapper from "./components/FormWrapper";
 import LoginForm from "./components/Login";
 import Navbar from "./components/navbar";
 import Signup from "./components/Signup"
 import Form from "./components/Form";
 
 import './App.css';
+import { FormButton } from 'semantic-ui-react';
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
@@ -131,7 +132,7 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path="/calendar" component={CalendarWrapper} />
-            <Route exact path="/create" component={FormWrapper} />
+            <Route exact path="/create" component={Form} />
             <Route exact path="/" render={() => <LoginForm user={this.state.user} />} />
             <Route exact path="/login"
               render={() =>
