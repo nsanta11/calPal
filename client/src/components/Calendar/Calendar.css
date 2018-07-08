@@ -1,5 +1,88 @@
-div{
-  float:left;
-  /* width: 30px; */
-  height: 100px;
+#calendarID {
+  background: #f7f7b0b8;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  border: solid black;
+  font-family: 'Roboto Condensed', sans-serif;
+  width:70vw;
+  max-height: 90vh;
+  margin-right:20px;
 }
+
+button {
+  font-family: 'Roboto Condensed', sans-serif !important;
+  background: #d04a4a !important;
+  margin: 5px;
+  color: black;
+  font-weight: 800;
+}
+
+/* events */
+.fc-content {
+  color: #020202;
+  background: #d04a4a;
+  /* border: #8e8585 solid; */
+  border-width: thin;
+  height: 20px;
+  font-size: 16px;
+}
+.fc-event {
+  background: #d04a4a;
+  border: solid gray;
+  border-width: 2px;
+}
+
+.fc-content:hover {
+  cursor: pointer;
+  background:#ff0000;
+}
+
+/* week */
+.fc-week {
+  max-height:12.5vh;
+  /* border: #948f8f solid; */
+}
+
+/* days of the week */
+.fc-head{
+  border: #E3F2FD solid;
+}
+
+.fc td {
+  border: #E3F2FD solid;
+}
+
+.fc th {
+  border-width: 3px;
+}
+
+/* today */
+.fc-today {
+  background: #e58c4afa !important;
+  border-width:3px;
+}
+
+span{
+  font-size:15px;
+}
+
+/* days of next month */
+.fc-other-month{
+  opacity:0.6 !important;
+}
+
+/* calendar wrapper */
+.fc-view-container{
+  max-height:90vh;
+}
+
+.fc-scroller{
+  max-height:75vh;
+}
+
+
+/* th{
+  border: #46b4f5 solid;
+  border-width: 5px;
+} */
+

@@ -7,6 +7,8 @@ import FormWrapper from "./components/FormWrapper";
 import LoginForm from "./components/Login";
 import Navbar from "./components/navbar";
 import Signup from "./components/Signup"
+import Form from "./components/Form";
+
 import './App.css';
 
 const DisplayLinks = props => {
@@ -119,6 +121,7 @@ class App extends Component {
 
   render() {
     return (
+
       <div className="App">
 
         <Navbar user={this.state.user} />
@@ -141,6 +144,7 @@ class App extends Component {
         </Router>
       </div>
     )
+
   }
 }
 

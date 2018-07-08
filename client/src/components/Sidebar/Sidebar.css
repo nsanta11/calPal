@@ -1,0 +1,21 @@
+.sidebar{
+    border: black solid;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    margin-left: 20px;
+    max-width: 25vw;
+    background: #f7f7b0;
+    font-size: 24px;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  
+  button {
+    font-family: 'Roboto Condensed', sans-serif !important;
+    background: #d04a4a !important;
+    margin: 5px;
+  }
+  
+  h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  
