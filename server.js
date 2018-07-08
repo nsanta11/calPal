@@ -74,7 +74,6 @@ app.use('/auth', require('./routes/auth'))
 
 
 // //app.get("/test", function(req, res) {
-// //console.log(db)
 
 app.get("/api/test", function(req, res) {
   res.send("Hello");
@@ -89,7 +88,7 @@ app.use(function(err, req, res, next) {
 
 // app.use(routes);
 
+// ==== Starting Server =====
 app.listen(PORT, () => {
 	console.log(`App listening on PORT: ${PORT}`)
 })
-
