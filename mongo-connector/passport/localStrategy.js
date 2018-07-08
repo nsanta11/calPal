@@ -6,19 +6,42 @@ const strategy = new LocalStrategy(
 		usernameField: 'username' // not necessary, DEFAULT
 	},
 	function(username, password, done) {
-		User.findOne({ username: username }, (err, user) => {
+		User.findOne({ 'local.username': username }, (err, userMatch) => {
 			if (err) {
 				return done(err)
 			}
-			if (!user) {
+			if (!userMatch) {
 				return done(null, false, { message: 'Incorrect username' })
 			}
-			if (!user.checkPassword(password)) {
+			if (!userMatch.checkPassword(password)) {
 				return done(null, false, { message: 'Incorrect password' })
 			}
-			return done(null, user)
+			return done(null, userMatch)
 		})
 	}
 )
 
 module.exports = strategy
+
+// const strategy = new LocalStrategy(
+// 	{
+//         usernameField: 'username', // not necessary, DEFAULT
+//         passwordField: 'password', 
+//         passReqToCallback: true
+// 	},
+// 	(function(req, username, password, done) {
+// 		User.findOne({ username: username }, (err, user) => {
+// 			if (err) {
+// 				return done(err)
+// 			}
+// 			if (!user) {
+// 				return done(null, false, { message: 'Incorrect username' })
+// 			}
+// 			if (!user.validPassword(password)) {
+// 				return done(null, false, { message: 'Incorrect password' })
+// 			}
+// 			return done(null, user)
+// 		})
+// 	})
+// )
+

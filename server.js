@@ -1,26 +1,28 @@
 const express = require("express");
 const path = require('path');
+// const flash = require('flash');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
-var passport = require('./mongo-connector/passport/index');
+const app = express();
+const passport = require('./mongo-connector/passport/');
+
 // const passport = require('./mongo-connector/passport');
-const user = require('./routes/auth/index')
+// const user = require('./routes/auth/index')
 
 const dbConnection = require("./models/mongo");
 const User = require('./models/user');
 // const routes = require("./routes/apiRoutes");
 const MongoStore = require('connect-mongo')(session)
 
+
 // const authRoutes   = require('./routes/auth');
 // const testRoutes   = require('./routes/test');
 
-const app = express();
 const PORT = process.env.PORT || 3001;
 // const router = express.Router();
-require('./mongo-connector/passport/');
 // require('./mongo-connector/passport')(passport);
 
 // // configuration ===============================================================
@@ -43,7 +45,7 @@ app.use(express.static("client/build"));
 // Sessions
 app.use(
   session({
-  secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
+  secret: 'default passphrase', //pick a random string to make the hash that is generated secure
   store: new MongoStore({ mongooseConnection: dbConnection }),
   resave: false, //required
   saveUninitialized: false //required
@@ -56,11 +58,12 @@ app.use(passport.initialize())
 app.use(passport.session()) // calls the deserializeUser
 
 
+app.use('/auth', require('./routes/auth'))
 
 // routes ======================================================================
 // app.use('/auth', authRoutes);
 // app.use('/test', testRoutes);
-app.use('/user', user)
+// app.use('/user', user)
 
 // const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/UserTest";
 // mongoose.Promise = Promise;
@@ -73,6 +76,13 @@ app.use('/user', user)
 
 app.get("/api/test", function(req, res) {
   res.send("Hello");
+})
+
+// ====== Error handler ====
+app.use(function(err, req, res, next) {
+	console.log('====== ERROR =======')
+	console.error(err.stack)
+	res.status(500)
 })
 
 
