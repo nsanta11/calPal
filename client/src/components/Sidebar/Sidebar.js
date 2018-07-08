@@ -1,9 +1,10 @@
 import React from "react";
-import { Dropdown, Search, Checkbox } from 'semantic-ui-react'
+import { Dropdown, Search, Checkbox } from 'semantic-ui-react';
+import './Sidebar.css';
 
 const Sidebar = () => {
   return (
-    <div>
+    <div className="sidebar">
       Dropdown menu of schedules
     <Dropdown placeholder='Select Schedule' fluid search selection options='a, b, c' />
 

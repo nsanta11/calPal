@@ -1,6 +1,7 @@
 import React from "react";
 import FullCalendar from 'fullcalendar-reactwrapper';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
+import './Calendar.css';
 
 class Calendar extends React.Component {
   state = {
