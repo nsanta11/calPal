@@ -125,12 +125,15 @@ class App extends Component {
 
       <div className="App">
 
-        <Navbar user={this.state.user} />
-				{/* LINKS to our different 'pages' */}
-				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+        {/* <Navbar user={this.state.user} />
+				{/* LINKS to our different 'pages' *
+				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} /> */}
   
         <Router>
           <div>
+					<Navbar user={this.state.user} />
+				{/* LINKS to our different 'pages' */}
+				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
             <Route exact path="/calendar" component={CalendarWrapper} />
             <Route exact path="/create" component={Form} />
             <Route exact path="/" render={() => <LoginForm user={this.state.user} />} />

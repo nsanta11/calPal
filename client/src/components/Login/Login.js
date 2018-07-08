@@ -42,7 +42,7 @@ class LoginForm extends Component {
             return (
                 <div>
                     <div className="login">
-                        <div className="calPal">calPal</div>
+                        <h1 className="calPal">calPal</h1>
                         <form className="form">
                         {/* <form action="/login" method="post"> */}
                             <div>
