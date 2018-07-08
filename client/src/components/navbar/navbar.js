@@ -4,7 +4,7 @@ import React from 'react'
 const Navbar = props => {
 	let Greeting
 	if (props.user === null) {
-		Greeting = <p>Hello guest</p>
+		Greeting = <p>Hello, guest</p>
 	} else if (props.user.firstName) {
 		Greeting = (
 			<p>
