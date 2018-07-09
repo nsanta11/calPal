@@ -1,5 +1,6 @@
 #calendarID {
-  background: #f7f7b0b8;
+  /* background: #f7f7b0b8; */
+  background: #b7b7a4ab;
   margin-top: 5vh;
   margin-bottom: 5vh;
   border: solid black;
@@ -58,7 +59,8 @@ button {
 
 /* today */
 .fc-today {
-  background: #e58c4afa !important;
+  /* background: #e58c4afa !important; */
+  background: #E3F2FD !important;
   border-width:3px;
 }
 
