@@ -9,7 +9,7 @@ class Calendar extends React.Component {
         title: '4pm Dbacks',
         allDay: false,
         start: new Date(2018, 6, 26, 10, 0),
-        end: new Date(2018, 6, 26, 14, 0)
+        end: new Date(2018, 6, 26, 14, 0),
       }
     ]
   }
@@ -29,10 +29,17 @@ class Calendar extends React.Component {
           header = {{
             left: 'prev, next, today',
             center: 'title',
-            right: 'month, basicWeek, basicDay, list'
+            right: 'month, basicWeek, basicDay, list',
           }}
           events = {this.state.events}
           style={{background: "red"}}
+          eventMouseover = {
+            function(event) {
+              console.log(event);
+              console.log(this)
+              this.style.backgroundColor = "red";
+            }
+          }
         />
       </div>
     )
@@ -57,8 +64,9 @@ class Calendar extends React.Component {
         return({
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
-          start: game.date,
-          end: game.date
+          start: new Date(game.date),
+          end: new Date(game.date),
+          eventMouseover: (event, jsEvent, view) => console.log("event hovered")
         })
       });
       this.setState({events: gameData})
