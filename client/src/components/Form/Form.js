@@ -3,6 +3,7 @@ import "./Form.css";
 import API from "../../utils/API";
 import Datetime from "react-datetime";
 import 'react-datetime/css/react-datetime.css';
+import { Grid } from 'semantic-ui-react';
 
 class Form extends React.Component {
   state = {
@@ -129,29 +130,50 @@ class Form extends React.Component {
           <textarea /> */}
           {this.state.eventsArray.map((event, index) =>
                 <div className="Form" id={index} key={index}>
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column width={8}>
+                      <Grid.Row className="eventName">
                 Event Name: 
                 <input 
                   name="title" 
                   value={event.title} 
                   onChange={(e) => this.handleInputChange(index, e)} 
                 />
-                Date: 
+                    </Grid.Row>
+                    <Grid.Row>
+                <p className="ddate">Date: </p>
                 <Datetime 
                   name="date" 
                   className="date" 
                   onChange={(e) => this.handleDateChange(index,e)}
                 />
-                 Where to Watch?
+                </Grid.Row>
+                <Grid.Row className="website">
+                Website: 
+                <input 
+                  name="link" 
+                  value={event.link} 
+                  onChange={(e) => this.handleInputChange(index, e)} 
+                />
+                </Grid.Row>
+                </Grid.Column>
+                <Grid.Column width={8}>
+                <Grid.Row>
+                 <p className="where">Where to Watch?</p>
+                 </Grid.Row>
                 {event.watch.map((Wevent, Windex) => 
                   //Windex is short for watch index, need both that and the form index
+                  <Grid.Row>
                   <input id={`watch${Windex}`}
                     name={Wevent}
                     value={Wevent} 
                     key={`watch${Windex}`} 
                     onChange={(e) => this.handleWatchChange(index, Windex, e)} 
                   /> 
+                  </Grid.Row>
                 )}
-
+                  <Grid.Row>
                 <button 
                   className="moreWatch"
                   onClick={(event) => {
@@ -161,18 +183,20 @@ class Form extends React.Component {
                 >
                   + location
                 </button>
-                Website: 
-                <input 
-                  name="link" 
-                  value={event.link} 
-                  onChange={(e) => this.handleInputChange(index, e)} 
-                />
+                </Grid.Row>
+                <Grid.Row className="addInfo">
                 Additional Information: 
+                </Grid.Row>
+                <Grid.Row>
                 <textarea 
                   name="info" 
                   value={event.info} 
                   onChange={(e) => this.handleInputChange(index, e)} 
                 />
+                </Grid.Row>
+                </Grid.Column>
+                </Grid.Row>
+                </Grid>
               </div>
           )}
           <button 

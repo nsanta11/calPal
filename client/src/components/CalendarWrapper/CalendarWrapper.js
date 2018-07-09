@@ -1,7 +1,7 @@
 import React from "react";
 import Calendar from "../Calendar";
 import Sidebar from "../Sidebar";
-import { Grid } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react';
 
 
 
