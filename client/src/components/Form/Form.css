@@ -1,10 +1,8 @@
 #FormWrapper{
   border: black solid;
   width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 5vh;
-  margin: 5vh 10vw 5vh 10vw;
+  margin: 5vh auto 5vh auto;
   background: #f7f7b0;
 }
 
