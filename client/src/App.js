@@ -10,7 +10,6 @@ import Signup from "./components/Signup"
 import Form from "./components/Form";
 
 import './App.css';
-import { FormButton } from 'semantic-ui-react';
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {

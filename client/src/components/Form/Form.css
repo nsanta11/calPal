@@ -1,10 +1,9 @@
 #FormWrapper{
   border: black solid;
-  /* width: 450px;
-  height: 240px; */
-  /* margin-left: 10vw;
-  margin-right: 10vw;
-  margin-top: 5vh; */
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5vh;
   margin: 5vh 10vw 5vh 10vw;
   background: #f7f7b0;
 }
@@ -41,4 +40,43 @@ h1 {
 .Form {
   border: black solid;
   margin: 20px;
+}
+
+.rdt {
+  width: 170px;
+  float: left !important;
+}
+
+.website {
+  clear:both;
+  margin-left:35px;
+}
+
+.ddate {
+  width: 50px;
+  float: left;
+  margin-left: 150px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.eventName {
+  margin-top: 10px;
+}
+
+.where {
+  margin-top: 10px;
+  width: 250px;
+  margin-left: 90px;
+  margin-bottom: 10px;
+}
+
+.addInfo {
+  margin: 10px;
+}
+
+textarea {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
