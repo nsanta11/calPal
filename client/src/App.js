@@ -133,6 +133,8 @@ class App extends Component {
 					<Navbar user={this.state.user} />
 				{/* LINKS to our different 'pages' */}
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+				<p className="calPalLogo">calPal</p>
+
             <Route exact path="/calendar" component={CalendarWrapper} />
             <Route exact path="/create" component={Form} />
             <Route exact path="/" render={() => <LoginForm user={this.state.user} />} />

@@ -38,6 +38,22 @@
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 18px;
 }
+
+.calPalLogo {
+  font-family: 'Orbitron', sans-serif;
+  width: 100px;
+  font-size: 30px;
+  margin: 0px 0px 0px 0px;
+  text-shadow:
+    -0.5px -0.5px 0 #d04a4a, 
+    0.5px 0.5px 0 #d04a4a, 
+    0.5px 0.5px 0 #d04a4a, 
+    1.5px 1.5px 0 #d04a4a;
+  position: relative;
+  left:23px;
+  bottom:39px;
+}
+
 /*
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
