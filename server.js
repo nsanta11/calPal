@@ -15,7 +15,7 @@ const passport = require('./mongo-connector/passport/');
 
 const dbConnection = require("./models/mongo");
 const User = require('./models/user');
-// const routes = require("./routes/apiRoutes");
+const routes = require("./routes/apiRoutes");
 const MongoStore = require('connect-mongo')(session)
 
 
@@ -60,7 +60,7 @@ app.use(passport.session()) // calls the deserializeUser
 
 
 app.use('/auth', require('./routes/auth'))
-// app.use(routes)
+app.use(routes)
 
 // routes ======================================================================
 // app.use('/auth', authRoutes);
