@@ -10,6 +10,7 @@ router.route("/api/calendar/")
   .get(calendar.find)
   .post(calendar.create)
   .put(calendar.update)
+  // .getByUser(calendar.find({author: id}))
 
 //user api routes
 // router.route("/api/user/")

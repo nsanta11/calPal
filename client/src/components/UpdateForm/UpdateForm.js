@@ -1,5 +1,8 @@
+//This page is mostly a copy of Form.js with some changes for updating purposes
+//It will be using the same css file as Form
+
 import React from "react";
-import "./Form.css";
+import "../Form/Form.css";
 import API from "../../utils/API";
 import Datetime from "react-datetime";
 import 'react-datetime/css/react-datetime.css';
@@ -14,9 +17,18 @@ class Form extends React.Component {
     eventsArray: [],
     eventsCount: 0,
     //the following are to create multiple Wheres per event
-    watchCount: 0
+    watchCount: 0,
+    //the following are needed for getting info from already created schedules to update
+    usersSchedules: []
   }
 
+  //Get all schedules created by the user
+  componentWillMount () {
+    API.getSchedule(this.props.user._id)
+    .then(res => console.log(res))
+    .catch(err => err);
+  }
+  
   //will update scheduleName while inputting scheduleName, this can be used to show user that they are inputting a unique scheduleName (will implement later)
   handleChange = event => {
     const name = event.target.name;
@@ -38,7 +50,7 @@ class Form extends React.Component {
       title: this.state.scheduleName,
       public: this.state.public,
       password: this.state.schedulePassword,
-      author: this.props.user._id,
+      author: "Need to get this from cookies, will implement later",
       savedEvents: this.state.eventsArray,
     };
 
@@ -47,7 +59,7 @@ class Form extends React.Component {
       title: this.state.scheduleName,
       public: this.state.public,
       password: this.state.schedulePassword,
-      author: this.props.user._id,
+      author: "Need to get this from cookies, will implement later",
       savedEvents: this.state.eventsArray
     })
       .then(res => "uploaded successfully")
