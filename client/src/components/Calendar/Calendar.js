@@ -4,11 +4,22 @@ import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 import './Calendar.css';
 
 class Calendar extends React.Component {
-
+  constructor(props) {
+    super(props)
+  }
+  state = {
+    events: [
+      {
+        title: 'Dbacks',
+        allDay: false,
+        start: "2018-07-09T16:00:00",
+      }
+    ]
+  }
 
   //create modal when event is clicked on for more information.  Modals are part of semantic
 
-  render() {
+  render(props) {
     return (
       <div id="calContainer"
             style={{height: 600,
@@ -20,7 +31,7 @@ class Calendar extends React.Component {
             center: 'title',
             right: 'month, basicWeek, basicDay, list'
           }}
-          events = {this.props.schedules}
+          events = {this.props.onScheduleChange}
           style={{background: "red"}}
         />
       </div>
