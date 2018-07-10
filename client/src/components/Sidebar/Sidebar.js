@@ -1,12 +1,16 @@
 import React from "react";
 import { Dropdown, Search, Checkbox } from 'semantic-ui-react';
 import './Sidebar.css';
+import teams from "./teams";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       Dropdown menu of schedules
-    <Dropdown placeholder='Select Schedule' fluid search selection options='a, b, c' />
+    <Dropdown placeholder='NFL' fluid search selection options={teams.NFLTeams} />
+    <Dropdown placeholder='MLB' fluid search selection options={teams.MLBTeams} />
+    <Dropdown placeholder='NBA' fluid search selection options={teams.NBATeams} />
+    <Dropdown placeholder='NHL' fluid search selection options={teams.NHLTeams} />
 
     Search bar of schedules
 
