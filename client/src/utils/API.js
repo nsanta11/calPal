@@ -8,7 +8,10 @@ export default {
   updateSchedule: function(schedule) {
     return axios.post("/api/calendar", schedule);
   },
-  // getSchedule: function(id) {
-  //   return axios.getByUser("/api/calendar", id);
-  // }
+  getSchedules: function() {
+    return axios.get("/api/calendar");
+  },
+  getSchedule: function(title) {
+    return axios.get("/api/calendar", title);
+  }
 };

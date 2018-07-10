@@ -4,9 +4,7 @@ import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 import './Calendar.css';
 
 class Calendar extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
   state = {
     events: [
       {
