@@ -4,15 +4,7 @@ import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 import './Calendar.css';
 
 class Calendar extends React.Component {
-  state = {
-    events: [
-      {
-        title: 'Dbacks',
-        allDay: false,
-        start: "2018-07-09T16:00:00",
-      }
-    ]
-  }
+
 
   //create modal when event is clicked on for more information.  Modals are part of semantic
 
@@ -28,7 +20,7 @@ class Calendar extends React.Component {
             center: 'title',
             right: 'month, basicWeek, basicDay, list'
           }}
-          events = {this.state.events}
+          events = {this.props.schedules}
           style={{background: "red"}}
         />
       </div>
