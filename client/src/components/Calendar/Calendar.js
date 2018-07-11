@@ -30,7 +30,6 @@ class Calendar extends React.Component {
             right: 'month, basicWeek, basicDay, list'
           }}
           events = {this.props.onScheduleChange}
-          style={{background: "red"}}
         />
       </div>
     )

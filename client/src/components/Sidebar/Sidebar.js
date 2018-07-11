@@ -3,16 +3,38 @@ import { Dropdown, Checkbox } from 'semantic-ui-react';
 import './Sidebar.css';
 import teams from "./teams";
 
-const Sidebar = (props) => {
-  console.log(props.titles);
+class Sidebar extends React.Component {
+
+  state = {
+    dropdownOptions: [
+      {text: 'NFL', value: 'NFL'},
+      {text: 'MLB', value: 'MLB'},
+      {text: 'NBA', value: 'NBA'},
+      {text: 'NHL', value: 'NHL'},
+      {text: 'Users Created Content', value: 'UCC'}
+    ],
+    dropdownPicked: ''
+  }
+
+  onChange= (e, res) => {
+    const dropdownPicked = res.value;
+    console.log(dropdownPicked);
+    this.setState({dropdownPicked});
+  }
+
+  // console.log(this.props.titles);
+  render() {
   return (
     <div className="sidebar">
       Dropdown menu of schedules
-    <Dropdown placeholder='NFL' fluid search selection options={teams.NFLTeams} onChange={props.handleNFLSelection}/>
-    <Dropdown placeholder='MLB' fluid search selection options={teams.MLBTeams} onChange={props.handleMLBSelection}/>
-    <Dropdown placeholder='NBA' fluid search selection options={teams.NBATeams} onChange={props.handleNBASelection}/>
-    <Dropdown placeholder='NHL' fluid search selection options={teams.NHLTeams} onChange={props.handleNHLSelection}/>
-    <Dropdown placeholder='Users Created Content' fluid search selection options={props.titles} onChange={props.handleCreatedContentSelection} />
+    <Dropdown placeholder='Schedules' fluid search selection options={this.state.dropdownOptions} onChange = {this.onChange} />
+      {this.state.dropdownPicked ==='NFL' ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NFLTeams} onChange={this.props.handleNFLSelection}/>)
+      : this.state.dropdownPicked=== `MLB` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.MLBTeams} onChange={this.props.handleMLBSelection}/>)
+      : this.state.dropdownPicked=== `NBA` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NBATeams} onChange={this.props.handleNBASelection}/>)
+      : this.state.dropdownPicked===`NHL` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NHLTeams} onChange={this.props.handleNHLSelection}/>)
+      : this.state.dropdownPicked===`UCC` ? (<Dropdown placeholder='Schedules' fluid search selection options={this.props.titles} onChange={this.props.handleCreatedContentSelection} />)
+      : <div />
+    }
     Search bar of schedules
 
           {/* <Search
@@ -21,7 +43,7 @@ const Sidebar = (props) => {
             // onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
             // results={results}
             // value={value}
-            // {...this.props}
+            // {...this.this.props}
           /> */}
         
     Checkboxes to toggle schedules on/off.  Can easily make these using a .map loop
@@ -30,6 +52,7 @@ const Sidebar = (props) => {
     <Checkbox label={{ children: 'Schedule 3' }} />   
     </div>
   )
+  }
 }
 
-export default Sidebar
+export default Sidebar;

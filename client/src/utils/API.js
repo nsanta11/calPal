@@ -11,7 +11,7 @@ export default {
   getSchedules: function() {
     return axios.get("/api/calendar");
   },
-  getSchedule: function(title) {
-    return axios.get("/api/calendar", title);
-  }
+  // getSchedule: function(id) {
+  //   return axios.get("/api/schedule/", id);
+  // }
 };
