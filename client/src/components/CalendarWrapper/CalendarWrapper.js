@@ -2,6 +2,7 @@ import React from "react";
 import Calendar from "../Calendar";
 import API from "../../utils/API";
 import Sidebar from "../Sidebar";
+import { Link } from "react-router-dom";
 import { Grid } from 'semantic-ui-react';
 
 class CalendarWrapper extends React.Component {
@@ -33,7 +34,7 @@ class CalendarWrapper extends React.Component {
       console.log(data.data);
       data.data.map((elem)=>this.setstate=({titles: this.state.titles.push({
         text: elem.title,
-        value: elem.title
+        value: elem._id
       })
     }));
       console.log(this.state.titles);
@@ -136,16 +137,22 @@ class CalendarWrapper extends React.Component {
   }    
   
   
-  handleCreatedContentSelection(res){
-    const title = res.value
-    API.getSchedule({title})
+  handleCreatedContentSelection(event, res){
+    const _id = res.value;
+    console.log(res);
+    API.getSchedules()
     .then(data => {
-      console.log(data);
-      // const titles = [];
-      // console.log(data.data);
-      // data.data.map((elem)=>titles.push(elem.title));
-      // console.log(titles);
-      // this.setState=({titles});
+      let schedule = data.data.filter((elem)=> _id === elem._id);
+      const createdContent = this.state.createdContent;
+      for(let i=0; i<schedule[0].savedEvents.length; i++) {
+        createdContent.push(schedule[0].savedEvents[i]);
+      }
+      console.log(createdContent);
+      this.setState({createdContent});
+      console.log(this.state.createdContent);
+      const fullSchedule = this.state.fullSchedule.concat(this.state.createdContent);
+      this.setState({fullSchedule});
+      console.log(this.state.fullSchedule);
     })
     .catch(err =>err);
   }

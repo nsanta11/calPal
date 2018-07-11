@@ -9,8 +9,11 @@ const Auth = db.Auth;
 router.route("/api/calendar/")
   .get(calendar.find)
   .post(calendar.create)
-  .put(calendar.update)
-  // .getByUser(calendar.find({author: id}))
+  .put(calendar.update);
+
+
+// router.route("/api/schedule")
+//   .get(calendar.findById);
 
 //user api routes
 // router.route("/api/user/")
