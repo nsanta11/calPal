@@ -7,6 +7,7 @@ import LoginForm from "./components/Login";
 import Navbar from "./components/navbar";
 import Signup from "./components/Signup"
 import Form from "./components/Form";
+import Home from "./components/Home";
 import UpdateForm from "./components/UpdateForm";
 
 import './App.css';
@@ -15,14 +16,14 @@ const DisplayLinks = props => {
 	if (props.loggedIn) {
 		return (
 			<nav className="navbar">
+				<div className="calPalLogo">
+					<Link to="/" className="nav-link">
+					calPal
+					</Link>
+				</div>
 				<ul className="nav">
-					<li className="nav-item">
-						<Link to="/" className="nav-link">
-							Home
-						</Link>
-					</li>
 					<li>
-						<Link to="#" className="nav-link" onClick={props._logout}>
+						<Link to="#" className="nav-link1" onClick={props._logout}>
 							Logout
 						</Link>
 					</li>
@@ -32,19 +33,19 @@ const DisplayLinks = props => {
 	} else {
 		return (
 			<nav className="navbar">
+				<div className="calPalLogo">
+					<Link to="/" className="nav-link">
+					calPal
+					</Link>
+				</div>
 				<ul className="nav">
 					<li className="nav-item">
-						<Link to="/" className="nav-link">
-							Home
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/login" className="nav-link">
+						<Link to="/login" className="nav-link1">
 							login
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/signup" className="nav-link">
+						<Link to="/signup" className="nav-link1">
 							sign up
 						</Link>
 					</li>
@@ -108,58 +109,60 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
-            user: response.data.user
-          })
-        }
-      })
-      .catch((error)=>{
-        console.log(error);
-      })
+						user: response.data.user
+					})
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
 	}
 
 
 
-  render() {
-    return (
+	render() {
+		return (
 
-      <div className="App">
+			<div className="App">
 
-        {/* <Navbar user={this.state.user} />
+				{/* <Navbar user={this.state.user} />
 				{/* LINKS to our different 'pages' *
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} /> */}
-  
-        <Router>
-          <div>
-					<Navbar user={this.state.user} />
-				{/* LINKS to our different 'pages' */}
-				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
-				<p className="calPalLogo">calPal</p>
 
-            <Route exact path="/calendar" component={CalendarWrapper} />
-            <Route exact path="/create" 
-              render={() =>
-                <Form user={this.state.user} 
-              />}
-            />
-            <Route exact path="/update" 
-              render={() =>
-                <UpdateForm user={this.state.user} 
-              />} 
-            />
-            <Route exact path="/" render={() => <LoginForm user={this.state.user} />} />
-            <Route exact path="/login"
-              render={() =>
-                <LoginForm
-                _login={this._login}
-              />}
-          />
-          <Route exact path="/signup" component={Signup} />
-          </div>
-        </Router>
-      </div>
-    )
+				<Router>
+					<div>
+						<div>
+							<Navbar user={this.state.user} />
+							{/* LINKS to our different 'pages' */}
+							<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />Ï
+					</div>
 
-  }
+
+					<Route exact path="/calendar" component={CalendarWrapper} />
+					<Route exact path="/create"
+						render={() =>
+							<Form user={this.state.user}
+							/>}
+					/>
+					<Route exact path="/update"
+						render={() =>
+							<UpdateForm user={this.state.user}
+							/>}
+					/>
+					<Route exact path="/" render={() => <Home user={this.state.user} />} />
+					<Route exact path="/login"
+						render={() =>
+							<LoginForm
+								_login={this._login}
+							/>}
+					/>
+					<Route exact path="/signup" component={Signup} />
+					</div>
+				</Router>
+			</div >
+		)
+
+	}
 }
 
 export default App;
