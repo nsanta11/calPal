@@ -11,6 +11,11 @@ const userSchema = new Schema({
     password: { type: String, unique: false, required: false },
     schedules: { type: Array}
 	},
+	
+	savedEvents: [{
+		sport: { type: String, required: false },
+		team: { type: String, required: false }
+	}]
 
 })
 // Define schema methods
