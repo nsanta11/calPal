@@ -110,7 +110,11 @@ class App extends Component {
 					this.setState({
 						loggedIn: true,
 						user: response.data.user
-					})
+          });
+          localStorage.clear();
+          localStorage.setItem("_id", response.data.user._id);
+          localStorage.setItem("name", response.data.user.local.username);
+          localStorage.setItem("schedules", response.data.user.local.schedules);
 				}
 			})
 			.catch((error) => {
@@ -141,7 +145,7 @@ class App extends Component {
 					<Route path="/calendar" component={CalendarWrapper} />
 					<Route exact path="/create"
 						render={() =>
-							<Form user={this.state.user}
+							<Form
 							/>}
 					/>
 					<Route exact path="/update"
