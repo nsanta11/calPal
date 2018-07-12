@@ -1,7 +1,9 @@
 import React from "react";
-import { Dropdown, Checkbox } from 'semantic-ui-react';
+import { Dropdown, Checkbox, Button } from 'semantic-ui-react';
 import './Sidebar.css';
 import teams from "./teams";
+import {Redirect} from 'react-router-dom'
+
 
 class Sidebar extends React.Component {
 
@@ -13,7 +15,8 @@ class Sidebar extends React.Component {
       {text: 'NHL', value: 'NHL'},
       {text: 'Users Created Content', value: 'UCC'}
     ],
-    dropdownPicked: ''
+    dropdownPicked: '',
+    redirectTo: null
   }
 
   onChange= (e, res) => {
@@ -22,10 +25,32 @@ class Sidebar extends React.Component {
     this.setState({dropdownPicked});
   }
 
+  redirect=(e) => {
+    e.preventDefault();
+    this.setState({
+			redirectTo: `/create`
+    });
+    console.log(this.state.redirectTo);
+  }
+
+  saveSchedule=(e) => {
+    e.preventDefault();
+    
+  }
+
   // console.log(this.props.titles);
   render() {
+    if (this.state.redirectTo) {
+			return <Redirect to={{ pathname: this.state.redirectTo }} />
+		}
   return (
     <div className="sidebar">
+    <div>
+      Checkboxes to tooggle schedules visibability on/off here.  Should also create a remove button near each checkbox to permanently remove schedule from user db.
+      <Checkbox label={{ children: 'Schedule 1' }} />
+    <Checkbox label={{ children: 'Schedule 2' }} />
+    <Checkbox label={{ children: 'Schedule 3' }} />  
+    </div>
       Dropdown menu of schedules
     <Dropdown placeholder='Schedules' fluid search selection options={this.state.dropdownOptions} onChange = {this.onChange} />
       {this.state.dropdownPicked ==='NFL' ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NFLTeams} onChange={this.props.handleNFLSelection}/>)
@@ -35,21 +60,10 @@ class Sidebar extends React.Component {
       : this.state.dropdownPicked===`UCC` ? (<Dropdown placeholder='Schedules' fluid search selection options={this.props.titles} onChange={this.props.handleCreatedContentSelection} />)
       : <div />
     }
-    Search bar of schedules
-
-          {/* <Search
-            // loading={isLoading}
-            // onResultSelect={this.handleResultSelect}
-            // onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
-            // results={results}
-            // value={value}
-            // {...this.this.props}
-          /> */}
-        
-    Checkboxes to toggle schedules on/off.  Can easily make these using a .map loop
-    <Checkbox label={{ children: 'Schedule 1' }} />
-    <Checkbox label={{ children: 'Schedule 2' }} />
-    <Checkbox label={{ children: 'Schedule 3' }} />   
+    <Button onClick={this.saveSchedule} className="saveSchedule">Add to calendar</Button>
+    <Button onClick={this.redirect} className="toCreate">Create a schedule</Button>
+    Anything else we need?
+ 
     </div>
   )
   }

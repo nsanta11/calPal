@@ -4,9 +4,12 @@ import API from "../../utils/API";
 import Datetime from "react-datetime";
 import 'react-datetime/css/react-datetime.css';
 import { Grid } from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom'
+
 
 class Form extends React.Component {
   state = {
+    redirectTo: null,
     scheduleName: "",
     public: true,
     schedulePassword: "",
@@ -51,7 +54,7 @@ class Form extends React.Component {
       author: author,
       savedEvents: this.state.eventsArray
     })
-      .then(res => "uploaded successfully")
+      .then(res => this.redirect())
       .catch(err => console.log(err));
   }
 
@@ -103,7 +106,16 @@ class Form extends React.Component {
     this.setState({eventsArray});
   }
   
+  redirect=() => {
+    this.setState({
+			redirectTo: `/calendar`
+		});
+  }
+
   render() {
+    if (this.state.redirectTo) {
+			return <Redirect to={{ pathname: this.state.redirectTo }} />
+		}
     return ( 
       <div id = "FormWrapper" >
         <h1>Create a new schedule</h1>
@@ -219,7 +231,14 @@ class Form extends React.Component {
               this.saveEvents();
             }}
           >
-            Save and Publish
+            Publish & return to Calendar
+          </button>
+          <button className="cancel"
+          onClick = {e => {
+            e.preventDefault();
+            this.redirect();
+          }}>
+            Cancel
           </button>
         </form>
       </div>
