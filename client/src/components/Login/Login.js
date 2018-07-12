@@ -12,7 +12,7 @@ class LoginForm extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			redirectTo: null
+      redirectTo: null,
 		}
 		// this.googleSignin = this.googleSignin.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -28,9 +28,11 @@ class LoginForm extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		console.log('handleSubmit')
-		this.props._login(this.state.username, this.state.password)
+    this.props._login(this.state.username, this.state.password)
+    console.log(this.props.user._id.toString());
+    // console.log(this.props);
 		this.setState({
-			redirectTo: '/'
+			redirectTo: `/calendar/${this.props.user._id.toString()}`
 		})
 	}
     
