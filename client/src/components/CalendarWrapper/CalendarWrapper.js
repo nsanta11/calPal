@@ -14,6 +14,7 @@ class CalendarWrapper extends React.Component {
     this.handleNHLSelection = this.handleNHLSelection.bind(this);
     this.handleNBASelection = this.handleNBASelection.bind(this);
     this.handleCreatedContentSelection = this.handleCreatedContentSelection.bind(this);
+    this.handleSaveClicked = this.handleSaveClicked.bind(this);
 
     this.state = {
       fullSchedule: [],
@@ -37,8 +38,8 @@ class CalendarWrapper extends React.Component {
         value: elem._id
       })
     }));
-      console.log(this.state.titles);
-      this.handleSaveClicked()
+      // console.log(this.state.titles);
+      // this.handleSaveClicked()
     })
     .catch(err => console.log(err));
   }
@@ -150,16 +151,18 @@ class CalendarWrapper extends React.Component {
       schedule[0].savedEvents.map((elem) => createdContent.push(elem));
       if(!this.state.createdContent.includes(createdContent)) {
         this.setState({createdContent: this.state.createdContent.push(createdContent)});
-        console.log(this.state.createdContent);
+        // console.log(this.state.createdContent);
         const fullSchedule = this.state.fullSchedule.concat(createdContent);
-        this.setState({fullSchedule});
-        console.log(this.state.fullSchedule);
+        this.setState({fullSchedule: fullSchedule, currentSelection: {sport: "ucc", team: res.value}});
+        // console.log(this.state.fullSchedule);
       }
     })
     .catch(err =>err);
   }
 
-  handleSaveClicked() {
+  handleSaveClicked(e) {
+    e.preventDefault();
+    console.log("clicked");
     console.log(localStorage.getItem("_id"));
     const dataToSend = JSON.stringify({itemToSave: this.state.currentSelection, _id: localStorage.getItem("_id")})
     console.log(dataToSend)
@@ -188,6 +191,7 @@ class CalendarWrapper extends React.Component {
                 handleNFLSelection={this.handleNFLSelection} 
                 handleMLBSelection={this.handleMLBSelection}
                 handleCreatedContentSelection={this.handleCreatedContentSelection} 
+                clicked={this.handleSaveClicked}
                 titles={this.state.titles}/>
             </Grid.Column>
             <Grid.Column width={12}>

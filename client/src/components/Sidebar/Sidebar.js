@@ -21,7 +21,6 @@ class Sidebar extends React.Component {
 
   onChange= (e, res) => {
     const dropdownPicked = res.value;
-    console.log(dropdownPicked);
     this.setState({dropdownPicked});
   }
 
@@ -30,13 +29,9 @@ class Sidebar extends React.Component {
     this.setState({
 			redirectTo: `/create`
     });
-    console.log(this.state.redirectTo);
   }
 
-  saveSchedule=(e) => {
-    e.preventDefault();
-    
-  }
+
 
   // console.log(this.props.titles);
   render() {
@@ -60,7 +55,8 @@ class Sidebar extends React.Component {
       : this.state.dropdownPicked===`UCC` ? (<Dropdown placeholder='Schedules' fluid search selection options={this.props.titles} onChange={this.props.handleCreatedContentSelection} />)
       : <div />
     }
-    <Button onClick={this.saveSchedule} className="saveSchedule">Add to calendar</Button>
+    <Button onClick={this.props.clicked} 
+      className="saveSchedule">Add to calendar</Button>
     <Button onClick={this.redirect} className="toCreate">Create a schedule</Button>
     Anything else we need?
  
