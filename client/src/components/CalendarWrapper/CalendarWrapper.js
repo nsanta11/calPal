@@ -142,17 +142,16 @@ class CalendarWrapper extends React.Component {
     console.log(res);
     API.getSchedules()
     .then(data => {
+      const createdContent = [];
       let schedule = data.data.filter((elem)=> _id === elem._id);
-      const createdContent = this.state.createdContent;
-      for(let i=0; i<schedule[0].savedEvents.length; i++) {
-        createdContent.push(schedule[0].savedEvents[i]);
-      }
-      console.log(createdContent);
-      this.setState({createdContent});
+      schedule[0].savedEvents.map((elem) => createdContent.push(elem));
+      if(!this.state.createdContent.includes(createdContent)) {
+      this.setState({createdContent: this.state.createdContent.push(createdContent)});
       console.log(this.state.createdContent);
-      const fullSchedule = this.state.fullSchedule.concat(this.state.createdContent);
+      const fullSchedule = this.state.fullSchedule.concat(createdContent);
       this.setState({fullSchedule});
       console.log(this.state.fullSchedule);
+      }
     })
     .catch(err =>err);
   }
