@@ -8,7 +8,8 @@ const userSchema = new Schema({
 
 	local: {
 		username: { type: String, unique: true, required: false },
-		password: { type: String, unique: false, required: false }
+    password: { type: String, unique: false, required: false },
+    schedules: { type: Array}
 	},
 
 })

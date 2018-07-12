@@ -29,10 +29,8 @@ class LoginForm extends Component {
 		event.preventDefault()
 		console.log('handleSubmit')
     this.props._login(this.state.username, this.state.password)
-    console.log(this.props.user._id.toString());
-    // console.log(this.props);
 		this.setState({
-			redirectTo: `/calendar/${this.props.user._id.toString()}`
+			redirectTo: `/calendar/`
 		})
 	}
     

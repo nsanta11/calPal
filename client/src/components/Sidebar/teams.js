@@ -47,7 +47,7 @@ const teams = {
     },
     {
       text: "Edmonton Oilers",
-      value: "edmonton oilers"
+      value: "edmonton-oilers"
     },
     {
       text: "Florida Panthers",

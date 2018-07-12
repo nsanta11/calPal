@@ -138,7 +138,7 @@ class App extends Component {
 					</div>
 
 
-					<Route path="/calendar/:id" component={CalendarWrapper} />
+					<Route path="/calendar" component={CalendarWrapper} />
 					<Route exact path="/create"
 						render={() =>
 							<Form user={this.state.user}
@@ -153,7 +153,6 @@ class App extends Component {
 					<Route exact path="/login"
 						render={() =>
 							<LoginForm
-                user={this.state.user}
 								_login={this._login}
 							/>}
 					/>
