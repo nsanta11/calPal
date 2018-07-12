@@ -28,7 +28,7 @@ class CalendarWrapper extends React.Component {
 
   }
 
-  componentWillMount(){
+  componentDidMount(){
     //Get the names of all created schedules to push to created content dropdown
     API.getSchedules()
     .then(data => {
@@ -42,6 +42,9 @@ class CalendarWrapper extends React.Component {
     })
     .catch(err => console.log(err));
   }
+
+  //get schedules from database
+
 // Comment out the API stuff so we don't use the max amount permitted per day unless you are working on it.  Will also need to comment out all references to this in this.state, render and in Sidebar.js
   handleNFLSelection(e, res) {
     fetch("https://api.mysportsfeeds.com/v1.2/pull/nfl/2018-2019-regular/full_game_schedule.json?team=" + res.value, {
@@ -140,7 +143,6 @@ class CalendarWrapper extends React.Component {
   
   handleCreatedContentSelection(event, res){
     const _id = res.value;
-    console.log(res);
     API.getSchedules()
     .then(data => {
       const createdContent = [];

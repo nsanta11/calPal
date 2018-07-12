@@ -17,7 +17,7 @@ router.route("/api/calendar/")
 
 //user api routes
 // router.route("/api/user/")
-//   .get(user.find)
+//   .get(user.findOne);
 //   .post(user.create)
 //   .put(user.update)
 
