@@ -34,11 +34,12 @@ class Form extends React.Component {
 
   //methods to save all form info to database
   saveEvents = () => {
+    const author = localStorage.getItem("_id");
     const schedule = {
       title: this.state.scheduleName,
       public: this.state.public,
       password: this.state.schedulePassword,
-      author: this.props.user._id,
+      author: author,
       savedEvents: this.state.eventsArray,
     };
 
@@ -47,7 +48,7 @@ class Form extends React.Component {
       title: this.state.scheduleName,
       public: this.state.public,
       password: this.state.schedulePassword,
-      author: this.props.user._id,
+      author: author,
       savedEvents: this.state.eventsArray
     })
       .then(res => "uploaded successfully")
