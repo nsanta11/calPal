@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import Datetime from "react-datetime";
 import 'react-datetime/css/react-datetime.css';
 import { Grid } from 'semantic-ui-react';
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom';
 
 
 class Form extends React.Component {
@@ -47,14 +47,9 @@ class Form extends React.Component {
     };
 
     console.log(schedule);
-    API.saveSchedule({
-      title: this.state.scheduleName,
-      public: this.state.public,
-      password: this.state.schedulePassword,
-      author: author,
-      savedEvents: this.state.eventsArray
-    })
-      .then(res => this.redirect())
+    API.saveSchedule(schedule)
+      .then(res => console.log("published"))
+      .then(this.redirect())
       .catch(err => console.log(err));
   }
 
@@ -231,7 +226,7 @@ class Form extends React.Component {
               this.saveEvents();
             }}
           >
-            Publish & return to Calendar
+            Publish
           </button>
           <button className="cancel"
           onClick = {e => {

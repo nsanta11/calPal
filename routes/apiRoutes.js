@@ -8,8 +8,8 @@ const Auth = db.Auth;
 //calendar api routes
 router.route("/api/calendar/")
   .get(calendar.find)
-  .post(user.create)
-  .put(user.update);
+  .post(calendar.create)
+  .put(calendar.update);
 
 
 // router.route("/api/schedule")
