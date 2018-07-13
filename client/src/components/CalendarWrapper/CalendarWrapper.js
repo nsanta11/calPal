@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import { Grid } from 'semantic-ui-react';
+import moment from "moment";
 
 class CalendarWrapper extends React.Component {
   constructor(props){
@@ -84,6 +85,10 @@ class CalendarWrapper extends React.Component {
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
           start: new Date(game.date),
+          date: new Date(game.date),
+          link: 'https://www.mlb.com',
+          watch: [`${game.location}, ${game.homeTeam.city}`],
+          info: '',
           eventMouseover: (event, jsEvent, view) => console.log("event hovered")
         });
       });
@@ -148,13 +153,20 @@ class CalendarWrapper extends React.Component {
     .then(data => {
       const createdContent = [];
       let schedule = data.data.filter((elem)=> _id === elem._id);
-      schedule[0].savedEvents.map((elem) => createdContent.push(elem));
+      schedule[0].savedEvents.map((elem) => {
+        createdContent.push(elem);
+        console.log(elem.date);
+        let tempDate = moment.utc(elem.date);
+        console.log(tempDate);
+        elem.date = tempDate._d;
+        console.log(elem.date);
+      });
       if(!this.state.createdContent.includes(createdContent)) {
         this.setState({createdContent: this.state.createdContent.push(createdContent)});
         // console.log(this.state.createdContent);
         const fullSchedule = this.state.fullSchedule.concat(createdContent);
         this.setState({fullSchedule: fullSchedule, currentSelection: {sport: "ucc", team: res.value}});
-        // console.log(this.state.fullSchedule);
+        console.log(this.state.fullSchedule);
       }
     })
     .catch(err =>err);
