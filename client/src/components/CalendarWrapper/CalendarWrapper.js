@@ -106,7 +106,7 @@ class CalendarWrapper extends React.Component {
 // Comment out the API stuff so we don't use the max amount permitted per day unless you are working on it.  Will also need to comment out all references to this in this.state, render and in Sidebar.js
   handleNFLSelection(e, res) {
     console.log("checking res..", res)
-    fetch("https://api.mysportsfeeds.com/v1.2/pull/nfl/2018-2019-regular/full_game_schedule.json?team=" + res.value, {
+    fetch("https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + res.value, {
       method: "GET",
       headers: {
         "Authorization": "Basic " + btoa("cdplourde:Pass4Class")
@@ -129,7 +129,7 @@ class CalendarWrapper extends React.Component {
     });
   }    
   handleMLBSelection(e, res) {
-    fetch("https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-2019-regular/full_game_schedule.json?team=" + res.value, {
+    fetch("https://api.mysportsfeeds.com/v1.2/pull/mlb/2017-2018-regular/full_game_schedule.json?team=" + res.value, {
       method: "GET",
       headers: {
         "Authorization": "Basic " + btoa("cdplourde:Pass4Class")
@@ -152,7 +152,7 @@ class CalendarWrapper extends React.Component {
     }); 
   }    
   handleNHLSelection(e, res) {
-    fetch("https://api.mysportsfeeds.com/v1.2/pull/nhl/2018-2019-regular/full_game_schedule.json?team=" + res.value, {
+    fetch("https://api.mysportsfeeds.com/v1.2/pull/nhl/2017-2018-regular/full_game_schedule.json?team=" + res.value, {
       method: "GET",
       headers: {
         "Authorization": "Basic " + btoa("cdplourde:Pass4Class")
