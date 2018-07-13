@@ -5,12 +5,13 @@ const db = require("../models");
 const Auth = db.Auth;
 
 
-//calendar api routes
 router.route("/api/calendar/")
   .get(calendar.find)
   .post(user.create)
   .put(user.update);
 
+router.route("/api/calendar/user")
+  .post(user.find)
 
 // router.route("/api/schedule")
 //   .get(calendar.findById);

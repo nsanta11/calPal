@@ -4,8 +4,17 @@ module.exports = {
   // Example of finding all users in db. Will tweak for whatever we need.
   find: function(req, res) {
     db.User
-      .find(req.query)
-      .then((dbModel) => res.json(dbModel))
+      .find({_id: req.body._id})
+      .then(dbModel => {
+        console.log("dbmodel:", dbModel)
+        // if (dbModel.length !== 0) {
+        //   res.json(dbModel)
+        // }
+        // else {
+        //   res.json({"nothing":"here"})
+        // }
+        res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {

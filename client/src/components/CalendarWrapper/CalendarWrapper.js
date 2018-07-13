@@ -18,6 +18,7 @@ class CalendarWrapper extends React.Component {
 
     this.state = {
       fullSchedule: [],
+      savedEvents: [],
       NBASchedule: [],
       NHLSchedule: [],
       MLBSchedule: [],
@@ -38,16 +39,73 @@ class CalendarWrapper extends React.Component {
         value: elem._id
       })
     }));
-      // console.log(this.state.titles);
-      // this.handleSaveClicked()
     })
     .catch(err => console.log(err));
+    const dataToSend = JSON.stringify({itemToSave: this.state.currentSelection, _id: localStorage.getItem("_id")})
+    console.log(dataToSend)
+    fetch("/api/calendar/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: dataToSend,
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("woo data:", data)
+      // MLB Events
+      const MLBEvents = data[0].savedEvents.filter(event => event.sport === "mlb");
+      const MLBEventsArr = []
+      for (let i = 0; i < MLBEvents.length; i++) {
+        MLBEventsArr.push(MLBEvents[i].team);
+      }
+      // NFL Events
+      const NFLEvents = data[0].savedEvents.filter(event => event.sport === "nfl");
+      const NFLEventsArr = []
+      for (let i = 0; i < NFLEvents.length; i++) {
+        NFLEventsArr.push(NFLEvents[i].team);
+      }
+      // NHL Events
+      const NHLEvents = data[0].savedEvents.filter(event => event.sport === "nhl");
+      const NHLEventsArr = []
+      for (let i = 0; i < NHLEvents.length; i++) {
+        NHLEventsArr.push(MLBEvents[i].team);
+      }
+      // NBA Events
+      const NBAEvents = data[0].savedEvents.filter(event => event.sport === "nba");
+      const NBAEventsArr = []
+      for (let i = 0; i < NBAEvents.length; i++) {
+        NBAEventsArr.push(NBAEvents[i].team);
+      }
+      console.log(MLBEventsArr, NFLEventsArr, NHLEventsArr, NBAEventsArr);
+      const fullSportsArr = [
+        {
+          sport: "mlb",
+          teams: MLBEventsArr
+        },
+        {
+          sport: "nfl",
+          teams: NFLEventsArr
+        },
+        {
+          sport: "nhl",
+          teams: NHLEventsArr
+        },
+        {
+          sport: "nba",
+          teams: NBAEventsArr
+        }
+      ]
+      this.renderSavedEvents(fullSportsArr)
+    })
   }
 
   //get schedules from database
 
 // Comment out the API stuff so we don't use the max amount permitted per day unless you are working on it.  Will also need to comment out all references to this in this.state, render and in Sidebar.js
   handleNFLSelection(e, res) {
+    console.log("checking res..", res)
     fetch("https://api.mysportsfeeds.com/v1.2/pull/nfl/2018-2019-regular/full_game_schedule.json?team=" + res.value, {
       method: "GET",
       headers: {
@@ -61,10 +119,10 @@ class CalendarWrapper extends React.Component {
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
           start: new Date(game.date),
-          eventMouseover: (event, jsEvent, view) => console.log("event hovered")
+          eventMouseover: (event, jsEvent, view) => console.log("event hovered"),
         });
       });
-      this.setState({NFLSchedule: gameData})
+      this.setState({NFLSchedule: gameData, NHLSchedule: [], NBASchedule: [], MLBSchedule: []})
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
       this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "nfl", team: res.value}});
       console.log(this.state)
@@ -87,7 +145,7 @@ class CalendarWrapper extends React.Component {
           eventMouseover: (event, jsEvent, view) => console.log("event hovered")
         });
       });
-      this.setState({MLBSchedule: gameData})
+      this.setState({MLBSchedule: gameData, NHLSchedule: [], NBASchedule: [], NFLSchedule: [] })
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
       this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "mlb", team: res.value}});
       console.log(this.state)
@@ -110,7 +168,7 @@ class CalendarWrapper extends React.Component {
           eventMouseover: (event, jsEvent, view) => console.log("event hovered")
         });
       });
-      this.setState({NHLSchedule: gameData})
+      this.setState({NHLSchedule: gameData, MLBSchedule: [], NBASchedule: [], NFLSchedule: []})
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
       this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "nhl", team: res.value}});
       console.log(this.state)
@@ -134,13 +192,40 @@ class CalendarWrapper extends React.Component {
           eventMouseover: (event, jsEvent, view) => console.log("event hovered")
         });
       });
-      this.setState({NBASchedule: gameData})
+      this.setState({NBASchedule: gameData, NHLSchedule: [], MLBSchedule: [], NFLSchedule: []})
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
       this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "nba", team: res.value}});
       console.log(this.state)
     })
   }    
   
+  renderSavedEvents(searchArr) {
+    console.log(searchArr);
+    searchArr.forEach(sport => {
+      if (sport.teams.length > 0) {
+        console.log("searching:", sport);
+        const URL = `https://api.mysportsfeeds.com/v1.2/pull/${sport.sport}/2017-2018-regular/full_game_schedule.json?team=${sport.teams.join(',')}`
+        fetch(URL, {
+          method: "GET",
+          headers: {
+            "Authorization": "Basic " + btoa("cdplourde:Pass4Class")
+          }
+        })
+        .then(result => result.json())
+        .then(data => {
+          const gameData = data.fullgameschedule.gameentry.map(game => {
+            return({
+              title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
+              allDay: false,
+              start: new Date(game.date),
+            });
+          });
+          this.setState({fullSchedule: this.state.fullSchedule.concat(gameData)});
+          console.log("state:", this.state)
+        })
+      }
+    })
+  }
   
   handleCreatedContentSelection(event, res){
     const _id = res.value;
