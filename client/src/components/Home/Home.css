@@ -67,10 +67,10 @@
     background: linear-gradient(rgba(0, 0, 0, 0.99), rgba(0, 0, 0, 0.55)),
     rgba(0, 0, 0, 0.55) url('../../images/calendar-660670_1920.jpg');
     width: 100%;
-    margin-top: -14px;
-    padding-top: 10;
+    margin-top: -19px;
+    /* padding-top: 10; */
     background-size: cover;
-    height: 1200px;
+    height: calc(100vh - 35px);
     color: #fff;
     text-align: center;
     text-rendering: optimizeLegibility;
