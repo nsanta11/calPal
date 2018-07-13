@@ -138,7 +138,7 @@ class App extends Component {
 						<div>
 							<Navbar user={this.state.user} />
 							{/* LINKS to our different 'pages' */}
-							<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />Ï
+							<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
 					</div>
 
 
