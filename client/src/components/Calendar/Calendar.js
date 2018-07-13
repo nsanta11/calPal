@@ -51,7 +51,7 @@ class Calendar extends React.Component {
           <Modal.Content>
             <Modal.Description>
               <h1>{this.state.title}</h1>
-              <p>Date: {this.state.date}</p>
+              {/* <p>Date: {this.state.date}</p> */}
               <p>Website: <a href={`${this.state.link}`} target='blank'>{this.state.link}</a></p>
               <p>Where to watch:</p>
               {this.state.watch.map( (watch) => <p key={watch}>{watch}</p>)}
