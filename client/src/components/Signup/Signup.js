@@ -13,6 +13,7 @@ class SignupForm extends Component {
 			password: '',
 			confirmPassword: '',
 			redirectTo: null,
+			message: '',
 			invalid: false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -41,13 +42,7 @@ class SignupForm extends Component {
 					})
 				} else {
 					console.log('duplicate')
-					this.setState({ invalid: true })
-					function validate(props) {
-						const invalid = props.invalid;
-						return (
-							<h1>Username Exists!</h1>
-						)
-					}
+					this.setState({ message: 'username already exists'})
 				}
 			})
 	}
@@ -88,9 +83,9 @@ class SignupForm extends Component {
 						onChange={this.handleChange}
 					/>
 				</div>
-				{/* <div invalid={true} />,
-				<div>invalid={true}<label htmlFor="invalid" id="invalid"></label>
-				</div> */}
+				<div>
+					{this.state.message}
+				</div>
 				<Button animated type="submit" className="signupButton" onClick={this.handleSubmit}>
 					<Button.Content visible>Sign Up</Button.Content>
 					<Button.Content hidden>

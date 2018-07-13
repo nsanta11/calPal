@@ -34,6 +34,27 @@ class LoginForm extends Component {
 		})
 	}
     
+    // handleLogout(event) {
+	// 	event.preventDefault()
+	// 	console.log('handleSubmit')
+    // this.props._logout(this.state.username, this.state.password)
+	// 	this.setState({
+	// 		redirectTo: `/login/`
+	// 	})
+    // }
+    
+    // .then(response => {
+    //     console.log(response)
+    //     if (!response.data.msg) {
+    //         console.log('you are good')
+    //         this.setState({
+    //             redirectTo: '/calendar'
+    //         })
+    //     } else {
+    //         console.log('wrong password')
+    //         this.setState({ message: 'incorrect password'})
+    //     }
+    // })
 
     render() {
         if (this.state.redirectTo) {

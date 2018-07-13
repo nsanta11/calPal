@@ -21,10 +21,27 @@ router.post(
 		console.log('================')
 		next()
 	},
+	
 	passport.authenticate('local'),
 	(req, res) => {
+		User.findOne({ email: req.body.username }, (err, user) => {
+			if (err) {
+				return res.send(err)
+			}
+			if (!user) {
+				return res.sendStatus(404)
+			}
+			if (!user.validPassword(req.body.password)) {
+				return res.json({
+					msg: ("Sorry, wrong password")
+				})
+			}
+	
+			res.status(201).json(user)
+	});
 		console.log('POST to /login')
-		const user = JSON.parse(JSON.stringify(req.user))
+		const user = req.user
+		// JSON.parse(JSON.stringify
 		const cleanUser = Object.assign({}, user)
 		if (cleanUser.local) {
 			console.log(`Deleting ${cleanUser.local.password}`)
@@ -33,6 +50,13 @@ router.post(
 		res.json({ user: cleanUser })
 	}
 )
+
+// User.findOne({'local.username': user}), (error, userMatch) => {
+// 	if (!userMatch) {
+// 		console.log("User doesn't exist")
+// 	}
+// }
+	
 
 router.post('/logout', (req, res) => {
 	if (req.user) {
