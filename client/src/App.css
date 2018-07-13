@@ -1,5 +1,5 @@
 a {
-  color: #FFF;
+  color: #E3F2FD;
 }
 a:hover {
    color: rgb(123, 224, 255)
@@ -16,14 +16,14 @@ a:hover {
   text-align: right;
 }
 
-.nav-link {
-  color: #ffffff;
+/* .nav-link {
+  color: #E3F2FD;
   font-size: 30px;
   margin: 0px 5px 0px 0px;
-}
+} */
 
 .nav-link1 {
-  color: #ffffff;
+  color: #E3F2FD;
   font-size: 20px;
   margin: 0px 5px 0px 0px;
 }
@@ -46,15 +46,15 @@ a:hover {
 .Header {
   float: right;
   padding-right: 200px;
-  padding-top: 7px;
+  padding-top: 4px;
   font-family: 'Roboto Condensed', sans-serif;
   color: #E3F2FD;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .calPalLogo {
   font-family: 'Orbitron', sans-serif;
-  color: #E3F2FD;
+  color: #E3F2FD !important;
   width: 100px;
   font-size: 30px !important;
   margin: 0px 0px 0px 0px;
@@ -66,7 +66,7 @@ a:hover {
     1.5px 1.5px 0 #d04a4a;
   position: relative;
   left:23px;
-  bottom:0px;
+  bottom:3px;
 }
 
 /*
