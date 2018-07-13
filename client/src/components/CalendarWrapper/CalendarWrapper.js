@@ -62,7 +62,9 @@ class CalendarWrapper extends React.Component {
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
           start: new Date(game.date),
-          eventMouseover: (event, jsEvent, view) => console.log("event hovered")
+          link: 'https://www.mlb.com',
+          watch: [`${game.location}, ${game.homeTeam.City}`],
+          info: '',
         });
       });
       this.setState({NFLSchedule: gameData})
@@ -87,7 +89,7 @@ class CalendarWrapper extends React.Component {
           start: new Date(game.date),
           date: new Date(game.date),
           link: 'https://www.mlb.com',
-          watch: [`${game.location}, ${game.homeTeam.city}`],
+          watch: [`${game.location}, ${game.homeTeam.City}`],
           info: '',
           eventMouseover: (event, jsEvent, view) => console.log("event hovered")
         });
@@ -112,7 +114,9 @@ class CalendarWrapper extends React.Component {
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
           start: new Date(game.date),
-          eventMouseover: (event, jsEvent, view) => console.log("event hovered")
+          link: 'https://www.nhl.com',
+          watch: [`${game.location}, ${game.homeTeam.City}`],
+          info: '',
         });
       });
       this.setState({NHLSchedule: gameData})
@@ -136,7 +140,9 @@ class CalendarWrapper extends React.Component {
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
           start: new Date(game.date),
-          eventMouseover: (event, jsEvent, view) => console.log("event hovered")
+          link: 'https://www.nba.com',
+          watch: [`${game.location}, ${game.homeTeam.City}`],
+          info: '',
         });
       });
       this.setState({NBASchedule: gameData})
