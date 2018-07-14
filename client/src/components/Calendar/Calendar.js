@@ -2,7 +2,7 @@ import React from "react";
 import FullCalendar from 'fullcalendar-reactwrapper';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 import './Calendar.css';
-import { Modal } from "semantic-ui-react";
+import { Modal, Grid, Button } from "semantic-ui-react";
 
 class Calendar extends React.Component {
 
@@ -47,16 +47,30 @@ class Calendar extends React.Component {
         />
         <Modal 
           open={this.state.open}
+          size="small"
         >
           <Modal.Content>
             <Modal.Description>
-              <h1>{this.state.title}</h1>
-              {/* <p>Date: {this.state.date}</p> */}
-              <p>Website: <a href={`${this.state.link}`} target='blank'>{this.state.link}</a></p>
-              <p>Where to watch:</p>
-              {this.state.watch.map( (watch) => <p key={watch}>{watch}</p>)}
-              <p>Additional Information: {this.state.info}</p>
-              <button onClick={(e)=>this.close(e)}>close</button>
+              <Grid>
+                <Grid.Row>
+                    <h1>{this.state.title}</h1>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={5}>
+
+                    {/* <p>Date: {this.state.date}</p> */}
+                    <p>Website: <a className="link" href={`${this.state.link}`} target='blank'>{this.state.link}</a></p>
+                        </Grid.Column>
+                        <Grid.Column width={5}>
+                    <p>Where to watch:</p>
+                    {this.state.watch.map( (watch) => <p key={watch}>{watch}</p>)}
+                    </Grid.Column>
+                        <Grid.Column width={6}>
+                    <p>Additional Information: {this.state.info}</p>
+                    </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <Button onClick={(e)=>this.close(e)}>Close</Button>
             </Modal.Description>
           </Modal.Content>
         </Modal>

@@ -3,7 +3,7 @@ import "./Form.css";
 import API from "../../utils/API";
 import Datetime from "react-datetime";
 import 'react-datetime/css/react-datetime.css';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 
 
@@ -119,7 +119,8 @@ class Form extends React.Component {
           <input 
             value={this.state.scheduleName}
             onChange={this.handleChange} 
-            name="scheduleName" 
+            name="scheduleName"
+            className="createInput" 
           /> <br />
           <div onChange={this.setPublic.bind(this)}>
             <input type="radio" id="public" name="pub-priv" className="pub-priv" value="Public" />Public
@@ -131,6 +132,7 @@ class Form extends React.Component {
               value={this.state.schedulePassword}
               onChange={this.handleChange}
               name="schedulePassword"
+              className = "createInput"
             />
           </div> : <div name="noPassword" />}
           {/* <p>Give the following people administrative access: <br />
@@ -145,6 +147,7 @@ class Form extends React.Component {
                 Event Name: 
                 <input 
                   name="title" 
+                  className = "createInput"
                   value={event.title} 
                   onChange={(e) => this.handleInputChange(index, e)} 
                 />
@@ -153,7 +156,6 @@ class Form extends React.Component {
                 <p className="ddate">Date: </p>
                 <Datetime 
                   name="date" 
-                  className="date" 
                   onChange={(e) => this.handleDateChange(index,e)}
                 />
                 </Grid.Row>
@@ -161,6 +163,7 @@ class Form extends React.Component {
                 Website: 
                 <input 
                   name="link" 
+                  className = "createInput"
                   value={event.link} 
                   onChange={(e) => this.handleInputChange(index, e)} 
                 />
@@ -177,20 +180,21 @@ class Form extends React.Component {
                     name={Wevent}
                     value={Wevent} 
                     key={`watch${Windex}`} 
+                    className = "createInput"
                     onChange={(e) => this.handleWatchChange(index, Windex, e)} 
                   /> 
                   </Grid.Row>
                 )}
                   <Grid.Row>
-                <button 
+                <Button 
                   className="moreWatch"
                   onClick={(event) => {
                     event.preventDefault();
                     this.moreWatch(index);
                   }}
                 >
-                  + location
-                </button>
+                  + Location
+                </Button>
                 </Grid.Row>
                 <Grid.Row className="addInfo">
                 Additional Information: 
@@ -207,19 +211,22 @@ class Form extends React.Component {
                 </Grid>
               </div>
           )}
-          <button 
+          <Button 
             className="moreEvents"
+            floated='left'
             onClick={ event => {
               event.preventDefault();
               this.moreEvents();
             }}
             >
               + Event
-          </button>
+          </Button>
           {/* <p>Include the emails of anybody you would like to share this calendar with.  This is the only way other users may find a private calendar.
           (seperate emails with a space or press enter after each one)</p>
           <textarea name="shareList" /> */}
-          <button 
+          <Button.Group
+          floated='right'>
+          <Button 
             className="saveSched"
             onClick = {event => {
               event.preventDefault();
@@ -227,14 +234,16 @@ class Form extends React.Component {
             }}
           >
             Publish
-          </button>
-          <button className="cancel"
+          </Button>
+          <Button.Or  />
+          <Button className="cancel"
           onClick = {e => {
             e.preventDefault();
             this.redirect();
           }}>
             Cancel
-          </button>
+          </Button>
+          </Button.Group>
         </form>
       </div>
     )
