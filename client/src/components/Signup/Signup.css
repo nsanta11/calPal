@@ -11,7 +11,10 @@
 
 h2 {
   margin-top: -10px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 32px;
 }
+
 label {
   font-size: 24px;
   font-family: 'Roboto Condensed', sans-serif;
@@ -21,9 +24,9 @@ label {
 .SignupForm {
   border: black solid;
   width: 450px;
-  height: 332px;
-  margin: 30vh auto 30vh auto;
-  background: #f7f7b0;
+  height: 375px;
+  margin: 30vh auto auto auto;
+  background: #b7b7a4ab;
 }
 
 input {
@@ -42,4 +45,10 @@ input {
 
 #confirmPW {
   margin-left: -71px;
+}
+
+.message {
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 15px;
 }

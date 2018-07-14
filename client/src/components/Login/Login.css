@@ -19,9 +19,9 @@ label {
 .login {
   border: black solid;
   width: 450px;
-  height: 250px;
-  margin: 30vh auto 30vh auto;
-  background: #f7f7b0;
+  height: 330px;
+  margin: 30vh auto auto auto;
+  background: #b7b7a4ab;
 }
 
 input {
@@ -36,4 +36,16 @@ input {
   background: #d04a4a !important;
   margin-left:23px !important;
   color: black;
+}
+
+.message {
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 15px;
+}
+
+h2 {
+  margin-top: -10px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 32px;
 }

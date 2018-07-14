@@ -43,6 +43,7 @@ class LoginForm extends Component {
                 <div>
                     <div className="login">
                         <h1 className="calPal">calPal</h1>
+                        <h2>Login</h2>
                         <form className="form">
                         {/* <form action="/login" method="post"> */}
                             <div>
@@ -53,6 +54,7 @@ class LoginForm extends Component {
                                 <label htmlFor="password">Password:  </label>
                                 <input type="password" id="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
                             </div>
+                            <div className="message"></div>
                             <Button animated type="submit" className="loginButton" onClick={this.handleSubmit}>
                                 <Button.Content visible>Log In</Button.Content>
                                 <Button.Content hidden>

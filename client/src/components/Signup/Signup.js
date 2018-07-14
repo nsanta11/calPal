@@ -83,7 +83,7 @@ class SignupForm extends Component {
                         onChange={this.handleChange}
                     />
                 </div>
-                <div>
+                <div className="message">
                     {this.state.message}
                 </div>
                 <Button animated type="submit" className="signupButton" onClick={this.handleSubmit}>

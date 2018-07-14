@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Redirect } from 'react-router-dom'
 import "./Home.css"
-// import { Button, Icon } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 
 class Home extends Component {
     constructor(props) {
@@ -74,7 +74,7 @@ class Home extends Component {
                                         {/* <button class="fluid ui button">Sign Up Now {<Redirect to="/signup" />}</button> */}
 
                                         <div>
-                                            <button className="fluid ui button" onClick={this.handleClick}>Sign Up Now</button>
+                                            <Button className="fluid ui button" onClick={this.handleClick}>Sign Up Now</Button>
                                         </div>
                                     </div>
                                     {/* <Button animated type="submit" className="signupButton" onClick={this.handleSubmit}>
