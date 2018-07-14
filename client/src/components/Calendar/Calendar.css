@@ -4,7 +4,7 @@
   margin-top: 5vh;
   margin-bottom: 5vh;
   border: solid black;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif !important;
   width:70vw;
   max-height: 90vh;
   margin-right:20px;
@@ -80,11 +80,19 @@ span{
 
 .fc-scroller{
   max-height:75vh;
+  overflow-y: hidden !important;
 }
 
+.modal{
+  background: #E3F2FD !important;
+  font-family: 'Roboto Condensed', sans-serif !important;
+  color: black;
+}
 
-/* th{
-  border: #46b4f5 solid;
-  border-width: 5px;
-} */
+.link{
+  color: black;
+}
 
+.ui.modal>.content{
+    font-size:20px;
+}

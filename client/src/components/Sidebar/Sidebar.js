@@ -40,13 +40,13 @@ class Sidebar extends React.Component {
 		}
   return (
     <div className="sidebar">
-    <div>
+    {/* <div>
       Checkboxes to tooggle schedules visibability on/off here.  Should also create a remove button near each checkbox to permanently remove schedule from user db.
       <Checkbox label={{ children: 'Schedule 1' }} />
     <Checkbox label={{ children: 'Schedule 2' }} />
     <Checkbox label={{ children: 'Schedule 3' }} />  
-    </div>
-      Dropdown menu of schedules
+    </div> */}
+      <h2>Find schedules</h2>
     <Dropdown placeholder='Schedules' fluid search selection options={this.state.dropdownOptions} onChange = {this.onChange} />
       {this.state.dropdownPicked ==='NFL' ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NFLTeams} onChange={this.props.handleNFLSelection}/>)
       : this.state.dropdownPicked=== `MLB` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.MLBTeams} onChange={this.props.handleMLBSelection}/>)
@@ -58,7 +58,6 @@ class Sidebar extends React.Component {
     <Button onClick={this.props.clicked} 
       className="saveSchedule">Add to calendar</Button>
     <Button onClick={this.redirect} className="toCreate">Create a schedule</Button>
-    Anything else we need?
  
     </div>
   )

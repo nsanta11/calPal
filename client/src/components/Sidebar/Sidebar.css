@@ -4,7 +4,8 @@
     margin-bottom: 5vh;
     margin-left: 20px;
     max-width: 25vw;
-    background: #f7f7b0;
+    min-height:85vh;
+    background: #b7b7a4ab;
     font-size: 24px;
     font-family: 'Roboto Condensed', sans-serif;
   }
@@ -14,8 +15,20 @@
     background: #d04a4a !important;
     margin: 5px;
   }
+
+  .toCreate {
+    margin-top: 5px !important;
+  }
+  .saveSchedule {
+    width: 140px;
+  }
   
   h1 {
     font-family: 'Roboto Condensed', sans-serif;
+    margin-top:10px;
+  }
+
+  .dropdown {
+    margin-bottom:15px;
   }
   

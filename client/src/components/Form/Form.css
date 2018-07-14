@@ -5,6 +5,7 @@
   margin: 5vh auto 5vh auto;
   /* background: #f7f7b0; */
   background: #b7b7a4ab;
+  padding-bottom: 50px;
 }
 
 form {
@@ -12,11 +13,19 @@ form {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-input {
+.createInput {
   font-size: 24px;
   font-family: 'Roboto Condensed', sans-serif;
   margin-bottom: 15px;
-  width: 171px;
+  width: 225px;
+  margin-left: 5px;
+}
+
+.form-control {
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 15px;
+  width: 225px;
   margin-left: 5px;
 }
 
@@ -28,6 +37,7 @@ input {
 
 button {
   font-family: 'Roboto Condensed', sans-serif !important;
+  /* font-size:18px !important; */
   background: #d04a4a !important;
   margin: 5px;
 }
@@ -54,7 +64,7 @@ h1 {
 .ddate {
   width: 50px;
   float: left;
-  margin-left: 150px;
+  margin-left: 126px;
   margin-bottom: 10px;
   font-size: 24px;
   font-family: 'Roboto Condensed', sans-serif;
@@ -78,4 +88,13 @@ h1 {
 textarea {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.moreEvents {
+  margin-left: 20px !important;
+}
+
+.cancel {
+  margin-right: 20px !important;
+  background: gray !important;
 }
