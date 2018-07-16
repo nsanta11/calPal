@@ -1,10 +1,9 @@
 .sidebar{
     border: black solid;
     margin-top: 5vh;
-    margin-bottom: 5vh;
     margin-left: 20px;
     max-width: 25vw;
-    min-height:85vh;
+    min-height: 87.5vh;
     background: #b7b7a4ab;
     font-size: 24px;
     font-family: 'Roboto Condensed', sans-serif;

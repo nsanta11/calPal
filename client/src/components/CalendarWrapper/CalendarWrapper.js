@@ -71,7 +71,7 @@ class CalendarWrapper extends React.Component {
       const NHLEvents = data[0].savedEvents.filter(event => event.sport === "nhl");
       const NHLEventsArr = []
       for (let i = 0; i < NHLEvents.length; i++) {
-        NHLEventsArr.push(MLBEvents[i].team);
+        NHLEventsArr.push(NHLEvents[i].team);
       }
       // NBA Events
       const NBAEvents = data[0].savedEvents.filter(event => event.sport === "nba");
@@ -79,7 +79,13 @@ class CalendarWrapper extends React.Component {
       for (let i = 0; i < NBAEvents.length; i++) {
         NBAEventsArr.push(NBAEvents[i].team);
       }
-      console.log(MLBEventsArr, NFLEventsArr, NHLEventsArr, NBAEventsArr);
+      //User Created Events
+      const UCCEvents = data[0].savedEvents.filter(event => event.sport === "ucc");
+      const UCCEventsArr = []
+      for (let i = 0; i < UCCEvents.length; i++) {
+        UCCEventsArr.push(UCCEvents[i].team);
+      }
+      console.log(MLBEventsArr, NFLEventsArr, NHLEventsArr, NBAEventsArr, UCCEventsArr);
       const fullSportsArr = [
         {
           sport: "mlb",
@@ -96,15 +102,70 @@ class CalendarWrapper extends React.Component {
         {
           sport: "nba",
           teams: NBAEventsArr
+        },
+        {
+          sport: "ucc",
+          teams: UCCEventsArr
         }
       ]
       this.renderSavedEvents(fullSportsArr)
     })
   }
 
-  //get schedules from database
+  renderSavedEvents(searchArr) {
+    console.log(searchArr);
+    searchArr.forEach(sport => {
+      if(sport.sport !== "ucc") {
+        if (sport.teams.length > 0) {
+          console.log("searching:", sport);
+          const URL = `https://api.mysportsfeeds.com/v1.2/pull/${sport.sport}/2017-2018-regular/full_game_schedule.json?team=${sport.teams.join(',')}`
+          fetch(URL, {
+            method: "GET",
+            headers: {
+              "Authorization": "Basic " + btoa("cdplourde:Pass4Class")
+            }
+          })
+          .then(result => result.json())
+          .then(data => {
+            const gameData = data.fullgameschedule.gameentry.map(game => {
+              return({
+                title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
+                allDay: false,
+                start: new Date(game.date),
+                link: `https://www.${sport.sport}.com`,
+                watch: [`${game.location}, ${game.homeTeam.City}`],
+                info: '',
+              });
+            });
+            this.setState({fullSchedule: this.state.fullSchedule.concat(gameData)});
+            console.log("state:", this.state)
+          })
+        }
+      } else {
+        if(sport.teams.length > 0) {
+          console.log("searching:", sport);
+          sport.teams.map(team => {
+          API.getSchedules()
+          .then(data => {
+            const createdContent = [];
+            let schedule = data.data.filter((elem)=> team === elem._id);
+            schedule[0].savedEvents.map((elem) => {
+              createdContent.push(elem);
+              console.log(elem.date);
+              let tempDate = moment.utc(elem.date);
+              elem.date = tempDate._d;
+            });
+            this.setState({fullSchedule: this.state.fullSchedule.concat(createdContent)});
+            console.log(this.state);
+          })
+          .catch(err => console.log(err));
+          });
+        }
+      }
+    })
+  }
 
-// Comment out the API stuff so we don't use the max amount permitted per day unless you are working on it.  Will also need to comment out all references to this in this.state, render and in Sidebar.js
+  //get schedules from database
   handleNFLSelection(e, res) {
     console.log("checking res..", res)
     fetch("https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + res.value, {
@@ -127,7 +188,7 @@ class CalendarWrapper extends React.Component {
       });
       this.setState({NFLSchedule: gameData, NHLSchedule: [], NBASchedule: [], MLBSchedule: []})
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
-      this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "nfl", team: res.value}});
+      this.setState({fullSchedule: this.state.fullSchedule.concat(fullScheduleTemp), currentSelection: {sport: "nfl", team: res.value}});
       console.log(this.state)
     });
   }    
@@ -154,7 +215,7 @@ class CalendarWrapper extends React.Component {
       });
       this.setState({MLBSchedule: gameData, NHLSchedule: [], NBASchedule: [], NFLSchedule: [] })
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
-      this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "mlb", team: res.value}});
+      this.setState({fullSchedule: this.state.fullSchedule.concat(fullScheduleTemp), currentSelection: {sport: "mlb", team: res.value}});
       console.log(this.state)
     }); 
   }    
@@ -179,7 +240,7 @@ class CalendarWrapper extends React.Component {
       });
       this.setState({NHLSchedule: gameData, MLBSchedule: [], NBASchedule: [], NFLSchedule: []})
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
-      this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "nhl", team: res.value}});
+      this.setState({fullSchedule: this.state.fullSchedule.concat(fullScheduleTemp), currentSelection: {sport: "nhl", team: res.value}});
       console.log(this.state)
     }); 
   }    
@@ -205,38 +266,10 @@ class CalendarWrapper extends React.Component {
       });
       this.setState({NBASchedule: gameData, NHLSchedule: [], MLBSchedule: [], NFLSchedule: []})
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule)
-      this.setState({fullSchedule: fullScheduleTemp, currentSelection: {sport: "nba", team: res.value}});
+      this.setState({fullSchedule: this.state.fullSchedule.concat(fullScheduleTemp), currentSelection: {sport: "nba", team: res.value}});
       console.log(this.state)
     })
   }    
-  
-  renderSavedEvents(searchArr) {
-    console.log(searchArr);
-    searchArr.forEach(sport => {
-      if (sport.teams.length > 0) {
-        console.log("searching:", sport);
-        const URL = `https://api.mysportsfeeds.com/v1.2/pull/${sport.sport}/2017-2018-regular/full_game_schedule.json?team=${sport.teams.join(',')}`
-        fetch(URL, {
-          method: "GET",
-          headers: {
-            "Authorization": "Basic " + btoa("cdplourde:Pass4Class")
-          }
-        })
-        .then(result => result.json())
-        .then(data => {
-          const gameData = data.fullgameschedule.gameentry.map(game => {
-            return({
-              title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
-              allDay: false,
-              start: new Date(game.date),
-            });
-          });
-          this.setState({fullSchedule: this.state.fullSchedule.concat(gameData)});
-          console.log("state:", this.state)
-        })
-      }
-    })
-  }
   
   handleCreatedContentSelection(event, res){
     const _id = res.value;
@@ -252,13 +285,17 @@ class CalendarWrapper extends React.Component {
         elem.date = tempDate._d;
         console.log(elem.date);
       });
-      if(!this.state.createdContent.includes(createdContent)) {
-        this.setState({createdContent: this.state.createdContent.push(createdContent)});
-        // console.log(this.state.createdContent);
-        const fullSchedule = this.state.fullSchedule.concat(createdContent);
-        this.setState({fullSchedule: fullSchedule, currentSelection: {sport: "ucc", team: res.value}});
-        console.log(this.state.fullSchedule);
-      }
+      this.setState({createdContent: createdContent, NBASchedule: [], NHLSchedule: [], MLBSchedule: [], NFLSchedule: []})
+      const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule, this.state.createdContent)
+      this.setState({fullSchedule: this.state.fullSchedule.concat(fullScheduleTemp), currentSelection: {sport: "ucc", team: _id}});
+      console.log(this.state);
+      // if(!this.state.createdContent.includes(createdContent)) {
+      //   this.setState({createdContent: this.state.createdContent.push(createdContent)});
+      //   // console.log(this.state.createdContent);
+      //   const fullSchedule = this.state.fullSchedule.concat(createdContent);
+      //   this.setState({fullSchedule: fullSchedule, currentSelection: {sport: "ucc", team: res.value}});
+      //   console.log(this.state.fullSchedule);
+      // }
     })
     .catch(err =>err);
   }
@@ -269,7 +306,7 @@ class CalendarWrapper extends React.Component {
     console.log(localStorage.getItem("_id"));
     const dataToSend = JSON.stringify({itemToSave: this.state.currentSelection, _id: localStorage.getItem("_id")})
     console.log(dataToSend)
-    fetch("/api/calendar/", {
+    fetch("/api/calendar/user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json; charset=utf-8",

@@ -12,6 +12,7 @@ router.route("/api/calendar/")
 
 router.route("/api/calendar/user")
   .post(user.find)
+  .put(user.update)
 
 // router.route("/api/schedule")
 //   .get(calendar.findById);
