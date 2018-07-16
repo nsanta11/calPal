@@ -18,6 +18,7 @@ class CalendarWrapper extends React.Component {
     this.handleSaveClicked = this.handleSaveClicked.bind(this);
 
     this.state = {
+      checkBox: [],
       fullSchedule: [],
       savedEvents: [],
       NBASchedule: [],
@@ -127,6 +128,7 @@ class CalendarWrapper extends React.Component {
           })
           .then(result => result.json())
           .then(data => {
+            console.log(data)
             const gameData = data.fullgameschedule.gameentry.map(game => {
               return({
                 title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
@@ -137,8 +139,12 @@ class CalendarWrapper extends React.Component {
                 info: '',
               });
             });
-            this.setState({fullSchedule: this.state.fullSchedule.concat(gameData)});
-            console.log("state:", this.state)
+            const checkBoxData = {
+              _id: sport.teams,
+              name: sport.teams
+            };
+            this.setState({fullSchedule: this.state.fullSchedule.concat(gameData), checkBox: this.state.checkBox.concat(checkBoxData)});
+            console.log("state:", this.state);
           })
         }
       } else {
@@ -149,13 +155,16 @@ class CalendarWrapper extends React.Component {
           .then(data => {
             const createdContent = [];
             let schedule = data.data.filter((elem)=> team === elem._id);
+            const checkBoxData = {
+            _id: sport.teams,
+            name: schedule[0].title
+          };
             schedule[0].savedEvents.map((elem) => {
               createdContent.push(elem);
-              console.log(elem.date);
               let tempDate = moment.utc(elem.date);
               elem.date = tempDate._d;
-            });
-            this.setState({fullSchedule: this.state.fullSchedule.concat(createdContent)});
+          });
+            this.setState({fullSchedule: this.state.fullSchedule.concat(createdContent), checkBox: this.state.checkBox.concat(checkBoxData)});
             console.log(this.state);
           })
           .catch(err => console.log(err));
@@ -332,7 +341,9 @@ class CalendarWrapper extends React.Component {
                 handleMLBSelection={this.handleMLBSelection}
                 handleCreatedContentSelection={this.handleCreatedContentSelection} 
                 clicked={this.handleSaveClicked}
-                titles={this.state.titles}/>
+                titles={this.state.titles}
+                checkBox={this.state.checkBox}
+              />
             </Grid.Column>
             <Grid.Column width={12}>
               <Calendar onScheduleChange={this.state.fullSchedule}/> 
