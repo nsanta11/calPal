@@ -2,9 +2,9 @@ import React from "react";
 import Calendar from "../Calendar";
 import API from "../../utils/API";
 import Sidebar from "../Sidebar";
-import { Link } from "react-router-dom";
 import { Grid } from 'semantic-ui-react';
 import moment from "moment";
+import teams from "../../utils/teams";
 
 class CalendarWrapper extends React.Component {
   constructor(props){
@@ -16,10 +16,12 @@ class CalendarWrapper extends React.Component {
     this.handleNBASelection = this.handleNBASelection.bind(this);
     this.handleCreatedContentSelection = this.handleCreatedContentSelection.bind(this);
     this.handleSaveClicked = this.handleSaveClicked.bind(this);
+    this.handleCheckBox = this.handleCheckBox.bind(this);
 
     this.state = {
       checkBox: [],
       fullSchedule: [],
+      hideSchedule: [],
       savedEvents: [],
       NBASchedule: [],
       NHLSchedule: [],
@@ -137,11 +139,14 @@ class CalendarWrapper extends React.Component {
                 link: `https://www.${sport.sport}.com`,
                 watch: [`${game.location}, ${game.homeTeam.City}`],
                 info: '',
+                schedID: sport.teams
               });
             });
+            const league = sport.sport.toUpperCase() + "Teams";
+            const teamName = teams[league].filter(x => x.value === sport.teams[0]);
             const checkBoxData = {
               _id: sport.teams,
-              name: sport.teams
+              name: teamName[0].text,
             };
             this.setState({fullSchedule: this.state.fullSchedule.concat(gameData), checkBox: this.state.checkBox.concat(checkBoxData)});
             console.log("state:", this.state);
@@ -153,21 +158,30 @@ class CalendarWrapper extends React.Component {
           sport.teams.map(team => {
           API.getSchedules()
           .then(data => {
-            const createdContent = [];
+            // const createdContent = [];
             let schedule = data.data.filter((elem)=> team === elem._id);
             const checkBoxData = {
-            _id: sport.teams,
-            name: schedule[0].title
+            _id: schedule[0]._id,
+            name: schedule[0].title,
           };
-            schedule[0].savedEvents.map((elem) => {
-              createdContent.push(elem);
+            const createdContent = schedule[0].savedEvents.map((elem) => {
+              // createdContent.push(elem);
               let tempDate = moment.utc(elem.date);
-              elem.date = tempDate._d;
+              return({
+                title: elem.title,
+                allDay: false,
+                start: tempDate._d,
+                link: elem.link,
+                watch: elem.watch,
+                info: elem.info,
+                schedID: schedule[0]._id
+              })
           });
             this.setState({fullSchedule: this.state.fullSchedule.concat(createdContent), checkBox: this.state.checkBox.concat(checkBoxData)});
             console.log(this.state);
           })
           .catch(err => console.log(err));
+          return('');
           });
         }
       }
@@ -253,6 +267,7 @@ class CalendarWrapper extends React.Component {
       console.log(this.state)
     }); 
   }    
+
   handleNBASelection(e, res) {
     fetch("https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/full_game_schedule.json?team=" + res.value, {
       method: "GET",
@@ -287,24 +302,15 @@ class CalendarWrapper extends React.Component {
       const createdContent = [];
       let schedule = data.data.filter((elem)=> _id === elem._id);
       schedule[0].savedEvents.map((elem) => {
-        createdContent.push(elem);
-        console.log(elem.date);
         let tempDate = moment.utc(elem.date);
-        console.log(tempDate);
         elem.date = tempDate._d;
-        console.log(elem.date);
+        createdContent.push(elem);
+        return('');
       });
       this.setState({createdContent: createdContent, NBASchedule: [], NHLSchedule: [], MLBSchedule: [], NFLSchedule: []})
       const fullScheduleTemp = this.state.NBASchedule.concat(this.state.NHLSchedule, this.state.MLBSchedule, this.state.NFLSchedule, this.state.createdContent)
       this.setState({fullSchedule: this.state.fullSchedule.concat(fullScheduleTemp), currentSelection: {sport: "ucc", team: _id}});
       console.log(this.state);
-      // if(!this.state.createdContent.includes(createdContent)) {
-      //   this.setState({createdContent: this.state.createdContent.push(createdContent)});
-      //   // console.log(this.state.createdContent);
-      //   const fullSchedule = this.state.fullSchedule.concat(createdContent);
-      //   this.setState({fullSchedule: fullSchedule, currentSelection: {sport: "ucc", team: res.value}});
-      //   console.log(this.state.fullSchedule);
-      // }
     })
     .catch(err =>err);
   }
@@ -328,6 +334,19 @@ class CalendarWrapper extends React.Component {
     .catch(err => console.log(err))
   }
 
+  handleCheckBox = (_id) => {
+    let fullSchedule = this.state.fullSchedule;
+    let hideSchedule = this.state.hideSchedule;
+    const toHideSchedule = fullSchedule.filter(x => x.schedID === _id);
+    const toShowSchedule = hideSchedule.filter(x => x.schedID === _id);
+    fullSchedule = fullSchedule.filter(x => x.schedID !== _id);
+    hideSchedule = hideSchedule.filter(x => x.schedID !== _id);
+    const hideThese = [...hideSchedule, ...toHideSchedule];
+    const showThese = [...fullSchedule, ...toShowSchedule];
+    this.setState({fullSchedule: showThese, hideSchedule: hideThese}, () => {
+  });
+  }
+
   render() {
     return(
       <div >
@@ -343,6 +362,7 @@ class CalendarWrapper extends React.Component {
                 clicked={this.handleSaveClicked}
                 titles={this.state.titles}
                 checkBox={this.state.checkBox}
+                handleCheckBox={this.handleCheckBox}
               />
             </Grid.Column>
             <Grid.Column width={12}>
