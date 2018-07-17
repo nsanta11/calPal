@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Redirect } from 'react-router-dom'
 import "./Home.css"
-import { Button, Icon } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 
 class Home extends Component {
     constructor(props) {

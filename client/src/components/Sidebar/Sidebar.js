@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown, Checkbox, Button } from 'semantic-ui-react';
 import './Sidebar.css';
-import teams from "./teams";
+import teams from "../../utils/teams";
 import {Redirect} from 'react-router-dom'
 
 
@@ -31,6 +31,7 @@ class Sidebar extends React.Component {
     });
   }
 
+  
 
 
   // console.log(this.props.titles);
@@ -44,7 +45,13 @@ class Sidebar extends React.Component {
 
     <div className="checkBoxField">
       {this.props.checkBox.map(item => (
-        <Checkbox label={item.name} elementid={item._id} key={`checkBox${item.name}`} />
+        <Checkbox 
+          label={item.name} 
+          elementid={item._id} 
+          key={`checkBox${item.name}`}
+          defaultChecked = {true}
+          onChange = {e => this.props.handleCheckBox(item._id)}
+          />
         ))
       }
     </div>
