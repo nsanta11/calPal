@@ -16,7 +16,8 @@ class Sidebar extends React.Component {
       {text: 'Users Created Content', value: 'UCC'}
     ],
     dropdownPicked: '',
-    redirectTo: null
+    redirectTo: null,
+    checkBox: []
   }
 
   onChange= (e, res) => {
@@ -31,6 +32,11 @@ class Sidebar extends React.Component {
     });
   }
 
+  componentWillReceiveProps=(prevProps) => {
+    if(prevProps.checkBox !== this.props.checkBox) {
+      // this.fetch(this.props.checkBox);
+    }
+  }
   
 
 
