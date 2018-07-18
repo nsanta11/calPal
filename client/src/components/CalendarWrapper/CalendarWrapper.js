@@ -3,7 +3,7 @@ import Calendar from "../Calendar";
 import API from "../../utils/API";
 import Sidebar from "../Sidebar";
 import { Grid } from 'semantic-ui-react';
-import moment from "moment";
+import moment from "moment-timezone";
 import teams from "../../utils/teams";
 
 class CalendarWrapper extends React.Component {
@@ -136,7 +136,7 @@ class CalendarWrapper extends React.Component {
               return({
                 title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
                 allDay: false,
-                start: new Date(game.date),
+                start: this.convertTimeZone(game.date, game.time),
                 link: `https://www.${sport.sport}.com`,
                 watch: [`${game.location}, ${game.homeTeam.City}`],
                 info: '',
@@ -206,7 +206,7 @@ class CalendarWrapper extends React.Component {
         return({
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
-          start: new Date(game.date),
+          start: this.convertTimeZone(game.date, game.time),
           link: 'https://www.mlb.com',
           watch: [`${game.location}, ${game.homeTeam.City}`],
           info: '',
@@ -232,8 +232,7 @@ class CalendarWrapper extends React.Component {
         return({
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
-          start: new Date(game.date),
-          date: new Date(game.date),
+          start: this.convertTimeZone(game.date, game.time),
           link: 'https://www.mlb.com',
           watch: [`${game.location}, ${game.homeTeam.City}`],
           info: '',
@@ -259,7 +258,7 @@ class CalendarWrapper extends React.Component {
         return({
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
-          start: new Date(game.date),
+          start: this.convertTimeZone(game.date, game.time),
           link: 'https://www.nhl.com',
           watch: [`${game.location}, ${game.homeTeam.City}`],
           info: '',
@@ -287,7 +286,7 @@ class CalendarWrapper extends React.Component {
         return({
           title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
           allDay: false,
-          start: new Date(game.date),
+          start: this.convertTimeZone(game.date, game.time),
           link: 'https://www.nba.com',
           watch: [`${game.location}, ${game.homeTeam.City}`],
           info: '',
@@ -376,6 +375,15 @@ class CalendarWrapper extends React.Component {
     const showThese = [...fullSchedule, ...toShowSchedule];
     this.setState({fullSchedule: showThese, hideSchedule: hideThese}, () => {
   });
+  }
+
+  convertTimeZone = (date, time) => {
+    const dateTime = date + " " + time;
+    const newDateTime = moment(dateTime, "YYYY-MM-DD h:mmA").format("YYYY-MM-DD HH:mm:ss");
+    const nyTime = moment.tz(newDateTime, "America/New_York");
+    const guessTZ = moment.tz.guess();
+    const myTime = nyTime.clone().tz(guessTZ);
+    return(myTime.format())
   }
 
   render() {
