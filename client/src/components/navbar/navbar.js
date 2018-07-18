@@ -4,16 +4,16 @@ import React from 'react'
 const Navbar = props => {
 	let Greeting
 	if (props.user === null) {
-		Greeting = <p className="greatings">Hello, guest</p>
+		Greeting = <p className="greetings">Hello, guest</p>
 	} else if (props.user.firstName) {
 		Greeting = (
-			<p className="greatings">
+			<p className="greetings">
 				Welcome back, <strong>{props.user.firstName}</strong>
 			</p>
 		)
 	} else if (props.user.local.username) {
 		Greeting = (
-			<p className="greatings">
+			<p className="greetings">
 				Welcome back, <strong>{props.user.local.username} </strong>
 			</p>
 		)
