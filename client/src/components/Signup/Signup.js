@@ -30,8 +30,8 @@ class SignupForm extends Component {
         axios
             .post('/auth/signup', {
                 username: this.state.username,
-        password: this.state.password,
-        schedules: []
+                password: this.state.password,
+                schedules: []
             })
             .then(response => {
                 console.log(response)

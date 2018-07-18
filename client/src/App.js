@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 //components
 import CalendarWrapper from "./components/CalendarWrapper";
 import LoginForm from "./components/Login";
+import Logout from "./components/Logout";
 import Navbar from "./components/navbar";
 import Signup from "./components/Signup"
 import Form from "./components/Form";
@@ -17,13 +18,13 @@ const DisplayLinks = props => {
 		return (
 			<nav className="navbar">
 				<div className="calPalLogo">
-					<Link to="/" className="nav-link">
+					<Link to="/calendar" className="nav-link">
 					calPal
 					</Link>
 				</div>
 				<ul className="nav">
 					<li>
-						<Link to="#" className="nav-link1" onClick={props._logout}>
+						<Link to="/logout" className="nav-link1" onClick={props._logout}>
 							Logout
 						</Link>
 					</li>
@@ -34,7 +35,7 @@ const DisplayLinks = props => {
 		return (
 			<nav className="navbar">
 				<div className="calPalLogo">
-					<Link to="/" className="nav-link">
+					<Link to="/calendar" className="nav-link">
 					calPal
 					</Link>
 				</div>
@@ -56,15 +57,37 @@ const DisplayLinks = props => {
 }
 
 class App extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
+			username: '',
+			password: '',
 			loggedIn: false,
-			user: null
+			user: null,
+			redirectTo: null
 		}
 		this._logout = this._logout.bind(this)
 		this._login = this._login.bind(this)
 	}
+
+	_logout(props) {
+		// event.preventDefault()
+		console.log('handleClick')
+		console.log('logging out')
+		axios.post('/auth/logout').then(response => {
+			console.log(response.data)
+			if (response.status === 200) {
+				this.setState({
+					loggedIn: false,
+					user: null,
+				})
+			}
+    
+		})
+	}
+    
+
+
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
 			console.log(response.data)
@@ -77,25 +100,45 @@ class App extends Component {
 			} else {
 				this.setState({
 					loggedIn: false,
-					user: null
+					user: null,
 				})
 			}
 		})
 	}
 
-	_logout(event) {
-		event.preventDefault()
-		console.log('logging out')
-		axios.post('/auth/logout').then(response => {
-			console.log(response.data)
-			if (response.status === 200) {
-				this.setState({
-					loggedIn: false,
-					user: null
-				})
-			}
-		})
-	}
+	// _logout(event) {
+	// 	event.preventDefault()
+	// 	console.log('handleClick')
+    // // this.props._logout(this.state.username, this.state.password)
+	// 	this.setState({
+	// 		loggedIn: false,
+	// 		user: null,
+	// 		redirectTo: `/login`
+	// 	})
+    // }
+
+	// shouldComponentUpdate() {
+	// 	axios.post('/auth/logout').then(response => {
+	// 		if (!response.data.user) {
+	// 			console.log('testtt')
+	// 		}
+	// 	})
+	// }
+		
+
+	// _logout(event) {
+	// 	event.preventDefault()
+	// 	console.log('logging out')
+	// 	axios.post('/auth/logout').then(response => {
+	// 		console.log(response.data)
+	// 		if (response.status === 200) {
+	// 			this.setState({
+	// 				loggedIn: false,
+	// 				user: null,
+	// 			})
+	// 		}
+	// 	})
+	// }
 
 	_login(username, password) {
 		axios
@@ -125,6 +168,9 @@ class App extends Component {
 
 
 	render() {
+		if (this.state.redirectTo) {
+            return <Redirect to={{ pathname: this.state.redirectTo }} />
+        }
 		return (
 
 			<div className="App">
@@ -154,13 +200,27 @@ class App extends Component {
 							/>}
 					/>
 					<Route exact path="/" render={() => <Home user={this.state.user} />} />
+					<Route exact path="/signup" component={Signup} />
 					<Route exact path="/login"
 						render={() =>
 							<LoginForm
 								_login={this._login}
-							/>}
+							/>}		
 					/>
-					<Route exact path="/signup" component={Signup} />
+					<Route exact path="/logout"
+						render={() =>
+							<Logout
+								_login={this._login}
+							/>}		
+					/>
+					{/* <Switch>
+					<Route exact path="/logout"
+								render={() =>
+									<LoginForm
+										_login={this._login}
+									/>}	
+									/>
+					</Switch> */}
 					</div>
 				</Router>
 			</div >

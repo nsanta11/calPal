@@ -1,12 +1,12 @@
 import React, {Component} from "react"
 // import axios from 'axios'
 import {Redirect} from 'react-router-dom'
-import "./Login.css"
+import "./Logout.css"
 import { Button, Icon } from 'semantic-ui-react'
 
 
 
-class LoginForm extends Component {
+class Logout extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -78,6 +78,4 @@ class LoginForm extends Component {
 }
 
 
-export default LoginForm;
-
-
+export default Logout;
