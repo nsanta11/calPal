@@ -32,15 +32,6 @@ class Sidebar extends React.Component {
     });
   }
 
-  componentWillReceiveProps=(prevProps) => {
-    if(prevProps.checkBox !== this.props.checkBox) {
-      // this.fetch(this.props.checkBox);
-    }
-  }
-  
-
-
-  // console.log(this.props.titles);
   render() {
     if (this.state.redirectTo) {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
@@ -53,7 +44,7 @@ class Sidebar extends React.Component {
       {this.props.checkBox.map(item => (
         <Checkbox 
           label={item.name} 
-          elementid={item._id} 
+          // elementid={item._id} 
           key={`checkBox${item.name}`}
           defaultChecked = {true}
           onChange = {e => this.props.handleCheckBox(item._id)}

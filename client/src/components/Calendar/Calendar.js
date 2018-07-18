@@ -44,6 +44,7 @@ class Calendar extends React.Component {
           }}
           events = {this.props.onScheduleChange}
           eventClick = {(e)=>this.moreInfo(e)}
+          eventLimit = {3}
         />
         <Modal 
           open={this.state.open}
