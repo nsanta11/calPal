@@ -121,7 +121,6 @@ class CalendarWrapper extends React.Component {
     searchArr.forEach(sport => {
       if(sport.sport !== "ucc") {
         if (sport.teams.length > 0) {
-          console.log("searching:", sport);
           const URL = `https://api.mysportsfeeds.com/v1.2/pull/${sport.sport}/2017-2018-regular/full_game_schedule.json?team=${sport.teams.join(',')}`
           fetch(URL, {
             method: "GET",
@@ -131,8 +130,16 @@ class CalendarWrapper extends React.Component {
           })
           .then(result => result.json())
           .then(data => {
-            console.log(data)
+            const checkBoxData = sport.teams.map((team) => {
+              const league = sport.sport.toUpperCase() + "Teams";
+              const teamName = teams[league].filter(x => x.value === team);
+              return ({
+                _id: team,
+                name: teamName[0].text,
+              });
+          });
             const gameData = data.fullgameschedule.gameentry.map(game => {
+              const schedID = checkBoxData.filter(team => ((team.name === `${game.homeTeam.City} ${game.homeTeam.Name}`) || (team.name === `${game.awayTeam.City} ${game.awayTeam.Name}`)));
               return({
                 title: `${game.homeTeam.Name} vs ${game.awayTeam.Name}`,
                 allDay: false,
@@ -140,26 +147,16 @@ class CalendarWrapper extends React.Component {
                 link: `https://www.${sport.sport}.com`,
                 watch: [`${game.location}, ${game.homeTeam.City}`],
                 info: '',
-                schedID: sport.teams
+                schedID: schedID[0]._id
               });
             });
-            console.log(sport.teams);
-            sport.teams.map((team) => {
-            const league = sport.sport.toUpperCase() + "Teams";
-            const teamName = teams[league].filter(x => x.value === team);
-            const checkBoxData = {
-              _id: sport.teams,
-              name: teamName[0].text,
-            };
             this.setState({fullSchedule: this.state.fullSchedule.concat(gameData), checkBox: this.state.checkBox.concat(checkBoxData)});
             console.log("state:", this.state);
-            return('');
-          });
+            
           })
         }
       } else {
         if(sport.teams.length > 0) {
-          console.log("searching:", sport);
           sport.teams.map(team => {
           API.getSchedules()
           .then(data => {
@@ -170,6 +167,8 @@ class CalendarWrapper extends React.Component {
           };
             const createdContent = schedule[0].savedEvents.map((elem) => {
               let tempDate = moment.utc(elem.date);
+              console.log(elem);
+              console.log(tempDate._d);
               return({
                 title: elem.title,
                 allDay: false,
@@ -383,7 +382,7 @@ class CalendarWrapper extends React.Component {
     const nyTime = moment.tz(newDateTime, "America/New_York");
     const guessTZ = moment.tz.guess();
     const myTime = nyTime.clone().tz(guessTZ);
-    return(myTime.format())
+    return(myTime.format()._d)
   }
 
   render() {

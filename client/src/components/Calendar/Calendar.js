@@ -16,10 +16,10 @@ class Calendar extends React.Component {
   }
 
   moreInfo = (e) => {
-    console.log(e.title);
+    console.log(e.start._i);
    this.setState({
      title: e.title,
-     date: e.date,
+    //  date: e.start._i,
      watch: e.watch,
      link: e.link,
      info: e.info,
@@ -44,6 +44,7 @@ class Calendar extends React.Component {
           }}
           events = {this.props.onScheduleChange}
           eventClick = {(e)=>this.moreInfo(e)}
+          eventLimit = {3}
         />
         <Modal 
           open={this.state.open}
@@ -57,8 +58,7 @@ class Calendar extends React.Component {
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column width={5}>
-
-                    {/* <p>Date: {this.state.date}</p> */}
+                    <p>Date: {this.state.date}</p>
                     <p>Website: <a className="link" href={`${this.state.link}`} target='blank'>{this.state.link}</a></p>
                         </Grid.Column>
                         <Grid.Column width={5}>

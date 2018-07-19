@@ -17,9 +17,15 @@
 
   .toCreate {
     margin-top: 5px !important;
+    position: absolute;
+    bottom: 90px;
+    left: 85px;
   }
   .saveSchedule {
     width: 140px;
+    position: absolute;
+    bottom: 135px;
+    left: 85px;
   }
   
   h1 {
@@ -30,4 +36,21 @@
   .dropdown {
     margin-bottom:15px;
   }
+
+  .checkBoxField {
+    height: 145px;
+    overflow: auto;
+    text-align:left;
+  }
   
+  .checkbox {
+    margin-top: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px !important;
+  }
+
+  .sidebarH2 {
+    margin-top: 5px;
+    font-size: 27px;
+    margin-bottom: 0px;
+  }
