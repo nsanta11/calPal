@@ -117,29 +117,6 @@ class App extends Component {
 	// 	})
     // }
 
-	// shouldComponentUpdate() {
-	// 	axios.post('/auth/logout').then(response => {
-	// 		if (!response.data.user) {
-	// 			console.log('testtt')
-	// 		}
-	// 	})
-	// }
-		
-
-	// _logout(event) {
-	// 	event.preventDefault()
-	// 	console.log('logging out')
-	// 	axios.post('/auth/logout').then(response => {
-	// 		console.log(response.data)
-	// 		if (response.status === 200) {
-	// 			this.setState({
-	// 				loggedIn: false,
-	// 				user: null,
-	// 			})
-	// 		}
-	// 	})
-	// }
-
 	_login(username, password) {
 		axios
 			.post('/auth/login', {
@@ -152,8 +129,8 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
-						user: response.data.user
-          });
+						user: response.data.user,
+          			});
           localStorage.clear();
           localStorage.setItem("_id", response.data.user._id);
           localStorage.setItem("name", response.data.user.local.username);
@@ -162,9 +139,15 @@ class App extends Component {
 			})
 			.catch((error) => {
 				console.log(error);
+				console.log('incorrect username or password')
+				this.setState({ 
+					message: 'incorrect username or password',
+
+				})
 			})
 	}
 
+	
 
 
 	render() {
@@ -213,14 +196,6 @@ class App extends Component {
 								_login={this._login}
 							/>}		
 					/>
-					{/* <Switch>
-					<Route exact path="/logout"
-								render={() =>
-									<LoginForm
-										_login={this._login}
-									/>}	
-									/>
-					</Switch> */}
 					</div>
 				</Router>
 			</div >
