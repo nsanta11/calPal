@@ -38,13 +38,12 @@ class Sidebar extends React.Component {
 		}
   return (
     <div className="sidebar">
-      <h2>Show/Hide schedules</h2>
+      <h2 className='sidebarH2'>Show/Hide schedules</h2>
 
     <div className="checkBoxField">
       {this.props.checkBox.map(item => (
         <Checkbox 
-          label={item.name} 
-          // elementid={item._id} 
+          label={`${item.name} [X]`} 
           key={`checkBox${item.name}`}
           defaultChecked = {true}
           onChange = {e => this.props.handleCheckBox(item._id)}
@@ -52,7 +51,7 @@ class Sidebar extends React.Component {
         ))
       }
     </div>
-      <h2>Find schedules</h2>
+      <h2 className='sidebarH2'>Find schedules</h2>
     <Dropdown placeholder='Schedules' fluid search selection options={this.state.dropdownOptions} onChange = {this.onChange} />
       {this.state.dropdownPicked ==='NFL' ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NFLTeams} onChange={this.props.handleNFLSelection}/>)
       : this.state.dropdownPicked=== `MLB` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.MLBTeams} onChange={this.props.handleMLBSelection}/>)

@@ -167,6 +167,8 @@ class CalendarWrapper extends React.Component {
           };
             const createdContent = schedule[0].savedEvents.map((elem) => {
               let tempDate = moment.utc(elem.date);
+              console.log(elem);
+              console.log(tempDate._d);
               return({
                 title: elem.title,
                 allDay: false,
@@ -380,7 +382,7 @@ class CalendarWrapper extends React.Component {
     const nyTime = moment.tz(newDateTime, "America/New_York");
     const guessTZ = moment.tz.guess();
     const myTime = nyTime.clone().tz(guessTZ);
-    return(myTime.format())
+    return(myTime.format()._d)
   }
 
   render() {
