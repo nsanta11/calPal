@@ -9,6 +9,7 @@ class Calendar extends React.Component {
   state = {
     title: '',
     date: '',
+    time: '',
     watch: [],
     link: '',
     info: '',
@@ -16,10 +17,10 @@ class Calendar extends React.Component {
   }
 
   moreInfo = (e) => {
-    console.log(e.start._i);
    this.setState({
      title: e.title,
-    //  date: e.start._i,
+     date: e.start.format('MMMM D, YYYY'),
+     time: e.start.format('h:mm a'),
      watch: e.watch,
      link: e.link,
      info: e.info,
@@ -58,15 +59,16 @@ class Calendar extends React.Component {
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column width={5}>
-                    <p>Date: {this.state.date}</p>
-                    <p>Website: <a className="link" href={`${this.state.link}`} target='blank'>{this.state.link}</a></p>
-                        </Grid.Column>
-                        <Grid.Column width={5}>
-                    <p>Where to watch:</p>
-                    {this.state.watch.map( (watch) => <p key={watch}>{watch}</p>)}
+                      <p>Date: {this.state.date}</p>
+                      <p>Time: {this.state.time}</p>
                     </Grid.Column>
-                        <Grid.Column width={6}>
-                    <p>Additional Information: {this.state.info}</p>
+                    <Grid.Column width={5}>
+                      <p>Where to watch:</p>
+                      {this.state.watch.map(watch => <p key={watch}>{watch}</p>)}
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                      <p>Website: <a className="link" href={`${this.state.link}`} target='blank'>{this.state.link}</a></p>
+                      <p>Additional Information: {this.state.info}</p>
                     </Grid.Column>
                 </Grid.Row>
               </Grid>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown, Checkbox, Button } from 'semantic-ui-react';
+import { Dropdown, Checkbox, Button, Icon, Popup } from 'semantic-ui-react';
 import './Sidebar.css';
 import teams from "../../utils/teams";
 import {Redirect} from 'react-router-dom'
@@ -11,7 +11,7 @@ class Sidebar extends React.Component {
     dropdownOptions: [
       {text: 'NFL', value: 'NFL'},
       {text: 'MLB', value: 'MLB'},
-      {text: 'NBA', value: 'NBA'},
+      {text: 'NBA-currently unavailable', value: 'NBA'},
       {text: 'NHL', value: 'NHL'},
       {text: 'Users Created Content', value: 'UCC'}
     ],
@@ -38,16 +38,28 @@ class Sidebar extends React.Component {
 		}
   return (
     <div className="sidebar">
-      <h2 className='sidebarH2'>Show/Hide schedules</h2>
+      <h2 className='sidebarH2'>My schedules</h2>
 
     <div className="checkBoxField">
       {this.props.checkBox.map(item => (
+        <div key={`checkBox${item.name}`}>
+        {item.name.length > 20 ?
+        <Popup
+          trigger={<Checkbox 
+            label={item.name.slice(0,19)}  
+            defaultChecked = {true}
+            onChange = {e => this.props.handleCheckBox(item._id)}
+          />}
+          content={item.name}
+          className='popup'
+        /> :
         <Checkbox 
-          label={`${item.name} [X]`} 
-          key={`checkBox${item.name}`}
+          label={item.name.slice(0,19)}  
           defaultChecked = {true}
           onChange = {e => this.props.handleCheckBox(item._id)}
-          />
+        />}
+        <Icon name='trash alternate outline' className='delete' /*onClick = {e =>this.props.removeSchedule(item._id)}*//>
+        </div>
         ))
       }
     </div>
@@ -55,7 +67,9 @@ class Sidebar extends React.Component {
     <Dropdown placeholder='Schedules' fluid search selection options={this.state.dropdownOptions} onChange = {this.onChange} />
       {this.state.dropdownPicked ==='NFL' ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NFLTeams} onChange={this.props.handleNFLSelection}/>)
       : this.state.dropdownPicked=== `MLB` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.MLBTeams} onChange={this.props.handleMLBSelection}/>)
-      : this.state.dropdownPicked=== `NBA` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NBATeams} onChange={this.props.handleNBASelection}/>)
+      : this.state.dropdownPicked=== `NBA` ? (<Dropdown placeholder='Teams' fluid search selection 
+      // options={teams.NBATeams} onChange={this.props.handleNBASelection}
+      />)
       : this.state.dropdownPicked===`NHL` ? (<Dropdown placeholder='Teams' fluid search selection options={teams.NHLTeams} onChange={this.props.handleNHLSelection}/>)
       : this.state.dropdownPicked===`UCC` ? (<Dropdown placeholder='Schedules' fluid search selection options={this.props.titles} onChange={this.props.handleCreatedContentSelection} />)
       : <div />
