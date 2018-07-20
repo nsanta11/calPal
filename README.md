@@ -1,4 +1,4 @@
-# calPal
+# calPal App
 
 ![](client/src/images/screenshot.png)
 
