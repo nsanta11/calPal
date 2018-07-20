@@ -66,9 +66,9 @@ app.use(routes)
 // app.use('/test', testRoutes);
 // app.use('/user', user)
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/UserTest";
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+// const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/UserTest";
+// mongoose.Promise = Promise;
+// mongoose.connect(MONGODB_URI);
 
 
 
