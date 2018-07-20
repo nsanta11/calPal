@@ -54,8 +54,5 @@
     "react-router-dom": "^4.3.1",
     "semantic-ui-css": "^2.3.2",
     "semantic-ui-react": "^0.81.3"
-  },
-  "devDependencies": {
-    "concurrently": "^3.5.1"
   }
 }
