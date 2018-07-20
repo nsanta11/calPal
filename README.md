@@ -2,13 +2,16 @@
 # Usages
 calPal helps users keep their events organized and prioritized. Users can browse our built in API data for event suggestions or create their own pulbic schedules to increase attendance.
 
+
 # Meta
 Distributed under the ISC license. See LICENSE for more information.
 
 https://github.com/Jhint24/VoluntArea
 
+
 # Contributing
 Fork it (https://github.com/nsanta11/calPal/fork)
+
 
 # Current Contributors
 Chay Dahill @ https://github.com/cfdahill/
@@ -20,6 +23,7 @@ Nicole Santarsiero @ https://github.com/nsanta11
 
 # MERN STARTER
 This is a MERN skeleton that connects a Node.js (Express )back-end with a React.js (create-react-app) front-end.
+https://github.com/mmarovich/MERN-starter
 
 To use: 
 
