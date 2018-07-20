@@ -2,7 +2,6 @@ import React, { Component } from "react"
 // import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import "./Login.css"
-// import {strategy} from "../../../mongo-connector/localStrategy.js"
 import { Button, Icon } from 'semantic-ui-react'
 // import {App} from "../../App.js"
 
@@ -27,28 +26,27 @@ class LoginForm extends Component {
         })
     }
 
+    componentWillReceiveProps(newProps){
+       console.log(newProps)
+       if (newProps.loggedIn===true) {
+        this.setState({
+            redirectTo: `/calendar/`
+        })
+       }
 
+       else {
+        console.log('incorrect username or password')
+        this.setState({ 
+            message: 'incorrect username or password',
+        })
+    }
+    }
 
     handleSubmit(event) {
         event.preventDefault()
 
         console.log('handleSubmit')
         this.props._login(this.state.username, this.state.password)
-        if (this.props.loggedIn===true) {
-            this.setState({
-                redirectTo: `/calendar/`
-            })
-        }
-        // this.setState({
-        // 	redirectTo: `/calendar/`
-        // })
-
-        else {
-            console.log('incorrect username or password')
-            this.setState({ 
-                message: 'incorrect username or password...',
-            })
-        }
     }
 
 

@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const flash = require('flash')
 const User = require('../../models/user')
 const passport = require('../../mongo-connector/passport')
 
@@ -14,6 +15,11 @@ router.get('/user', (req, res, next) => {
 	}
 })
 
+router.get('/login', function(req, res) {
+    console.log(req.flash('error'));
+    res.send();
+});
+
 router.post(
 	'/login',
 	function(req, res, next) {
@@ -21,7 +27,9 @@ router.post(
 		console.log('================')
 		next()
 	},
-	passport.authenticate('local'),
+	passport.authenticate('local', { 
+		failureRedirect: '/login',
+	}),
 	(req, res) => {
 		console.log('POST to /login')
 		const user = JSON.parse(JSON.stringify(req.user))
