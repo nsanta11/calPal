@@ -1,3 +1,5 @@
+# calPal
+
 ![](client/src/images/screenshot.png)
 
 # Usages
