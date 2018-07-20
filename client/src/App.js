@@ -19,7 +19,7 @@ const DisplayLinks = props => {
 			<nav className="navbar">
 				<div className="calPalLogo">
 					<Link to="/calendar" className="nav-link">
-					calPal
+						calPal
 					</Link>
 				</div>
 				<ul className="nav">
@@ -35,8 +35,8 @@ const DisplayLinks = props => {
 		return (
 			<nav className="navbar">
 				<div className="calPalLogo">
-					<Link to="/calendar" className="nav-link">
-					calPal
+					<Link to="/" className="nav-link">
+						calPal
 					</Link>
 				</div>
 				<ul className="nav">
@@ -82,10 +82,10 @@ class App extends Component {
 					user: null,
 				})
 			}
-    
+
 		})
 	}
-    
+
 
 
 	componentDidMount() {
@@ -106,39 +106,6 @@ class App extends Component {
 		})
 	}
 
-	// _logout(event) {
-	// 	event.preventDefault()
-	// 	console.log('handleClick')
-    // // this.props._logout(this.state.username, this.state.password)
-	// 	this.setState({
-	// 		loggedIn: false,
-	// 		user: null,
-	// 		redirectTo: `/login`
-	// 	})
-    // }
-
-	// shouldComponentUpdate() {
-	// 	axios.post('/auth/logout').then(response => {
-	// 		if (!response.data.user) {
-	// 			console.log('testtt')
-	// 		}
-	// 	})
-	// }
-		
-
-	// _logout(event) {
-	// 	event.preventDefault()
-	// 	console.log('logging out')
-	// 	axios.post('/auth/logout').then(response => {
-	// 		console.log(response.data)
-	// 		if (response.status === 200) {
-	// 			this.setState({
-	// 				loggedIn: false,
-	// 				user: null,
-	// 			})
-	// 		}
-	// 	})
-	// }
 
 	_login(username, password) {
 		axios
@@ -152,25 +119,33 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
-						user: response.data.user
-          });
-          localStorage.clear();
-          localStorage.setItem("_id", response.data.user._id);
-          localStorage.setItem("name", response.data.user.local.username);
-          localStorage.setItem("schedules", response.data.user.local.schedules);
+						user: response.data.user,
+						// redirectTo:'/calendar/'
+					});
+
+					localStorage.clear();
+					localStorage.setItem("_id", response.data.user._id);
+					localStorage.setItem("name", response.data.user.local.username);
+					localStorage.setItem("schedules", response.data.user.local.schedules);
 				}
 			})
 			.catch((error) => {
 				console.log(error);
+				console.log('incorrect username or password')
+				this.setState({
+					message: 'incorrect username or password',
+
+				})
 			})
 	}
 
 
 
+
 	render() {
 		if (this.state.redirectTo) {
-            return <Redirect to={{ pathname: this.state.redirectTo }} />
-        }
+			return <Redirect to={{ pathname: this.state.redirectTo }} />
+		}
 		return (
 
 			<div className="App">
@@ -185,42 +160,36 @@ class App extends Component {
 							<Navbar user={this.state.user} />
 							{/* LINKS to our different 'pages' */}
 							<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
-					</div>
+						</div>
 
 
-					<Route path="/calendar" component={CalendarWrapper} />
-					<Route exact path="/create"
-						render={() =>
-							<Form
-							/>}
-					/>
-					<Route exact path="/update"
-						render={() =>
-							<UpdateForm user={this.state.user}
-							/>}
-					/>
-					<Route exact path="/" render={() => <Home user={this.state.user} />} />
-					<Route exact path="/signup" component={Signup} />
-					<Route exact path="/login"
-						render={() =>
-							<LoginForm
-								_login={this._login}
-							/>}		
-					/>
-					<Route exact path="/logout"
-						render={() =>
-							<Logout
-								_login={this._login}
-							/>}		
-					/>
-					{/* <Switch>
-					<Route exact path="/logout"
-								render={() =>
-									<LoginForm
-										_login={this._login}
-									/>}	
-									/>
-					</Switch> */}
+						<Route path="/calendar" component={CalendarWrapper} />
+						<Route exact path="/create"
+							render={() =>
+								<Form
+								/>}
+						/>
+						<Route exact path="/update"
+							render={() =>
+								<UpdateForm user={this.state.user}
+								/>}
+						/>
+						<Route exact path="/" render={() => <Home user={this.state.user} />} />
+						<Route exact path="/signup" component={Signup} />
+						<Route exact path="/login"
+							render={() =>
+								<LoginForm
+									_login={this._login}
+									loggedIn={this.state.loggedIn}
+									user={this.state.user}
+								/>}
+						/>
+						<Route exact path="/logout"
+							render={() =>
+								<Logout
+									_login={this._login}
+								/>}
+						/>
 					</div>
 				</Router>
 			</div >
