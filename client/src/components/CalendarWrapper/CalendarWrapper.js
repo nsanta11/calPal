@@ -17,6 +17,7 @@ class CalendarWrapper extends React.Component {
     this.handleCreatedContentSelection = this.handleCreatedContentSelection.bind(this);
     this.handleSaveClicked = this.handleSaveClicked.bind(this);
     this.handleCheckBox = this.handleCheckBox.bind(this);
+    this.removeSched = this.removeSched.bind(this);
 
     this.state = {
       checkBox: [],
@@ -30,6 +31,7 @@ class CalendarWrapper extends React.Component {
       createdContent: [],
       titles: [],
       currentSelection: {sport: null, team: null},
+      checkBoxObject: []
     }
 
   }
@@ -55,6 +57,7 @@ class CalendarWrapper extends React.Component {
     })
     .then(res => res.json())
     .then(data => {
+      this.setState({checkBoxObject: data[0].savedEvents});
       // MLB Events
       const MLBEvents = data[0].savedEvents.filter(event => event.sport === "mlb");
       const MLBEventsArr = []
@@ -365,6 +368,25 @@ class CalendarWrapper extends React.Component {
     return(myTime.format('YYYY-MM-DD HH:mm:ss'))
   }
 
+  removeSched = (id) => {
+    console.log(id);
+    console.log(localStorage.getItem("_id"));
+    const checkBoxObject = this.state.checkBoxObject;
+    console.log(checkBoxObject);
+    const deleteMe = checkBoxObject.filter(x => x.team === id);
+    const dataToSend = {itemToDelete: id, _id: localStorage.getItem("_id")};
+    console.log(dataToSend);
+    fetch("/api/calendar/user2", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: dataToSend,
+    })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+  }
+
   render() {
     return(
       <div >
@@ -381,6 +403,7 @@ class CalendarWrapper extends React.Component {
                 titles={this.state.titles}
                 checkBox={this.state.checkBox}
                 handleCheckBox={this.handleCheckBox}
+                // removeSched={this.removeSched}
               />
             </Grid.Column>
             <Grid.Column width={12}>

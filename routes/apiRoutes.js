@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const calendar = require("../controllers/calendarsController.js");
-const user = require("../controllers/usersController")
+const user = require("../controllers/usersController");
+const user2 = require("../controllers/usersControllerPull");
 const db = require("../models");
 const Auth = db.Auth;
 
@@ -13,6 +14,10 @@ router.route("/api/calendar/")
 router.route("/api/calendar/user")
   .post(user.find)
   .put(user.update)
+
+// router.route("/api/calendar/user2")
+//   .post(user2.find)
+//   .put(user2.update)
 
 // router.route("/api/schedule")
 //   .get(calendar.findById);
