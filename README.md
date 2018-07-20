@@ -1,3 +1,4 @@
+![](client/src/images/screenshot)
 
 # Usages
 calPal helps users keep their events organized and prioritized. Users can browse our built in API data for event suggestions or create their own pulbic schedules to increase attendance.
