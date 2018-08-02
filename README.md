@@ -3,7 +3,7 @@
 ![](client/src/images/screenshot.png)
 
 # Usages
-calPal helps users keep their events organized and prioritized. Users can browse our built in API data for event suggestions or create their own pulbic schedules to increase event attendance.
+calPal helps users keep their events organized and prioritized. Users can browse our built in API data for event suggestions or create their own public schedules to increase event attendance.
 
 
 # Meta
